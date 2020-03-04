@@ -12,6 +12,7 @@ export default class StickyNoteController {
       .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
+      .delete('/:id', this.delete)
       .use(this.defaultRoute)
   }
 
@@ -50,6 +51,15 @@ export default class StickyNoteController {
       let data = await _stickyNoteService.edit(req.params.id, req.body, req.session.uid)
       return res.send(data)
     } catch (error) { next(error) }
+  }
+
+  async delete(req, res, next) {
+    try {
+      await _stickyNoteService.delete(req.params.id, req.session.uid);
+      return res.send("Successfully deleted");
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

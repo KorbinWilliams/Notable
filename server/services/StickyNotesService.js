@@ -39,6 +39,12 @@ class StickyNoteService {
     }
     return data;
   }
+  async delete(id, uid) {
+    let data = await _repository.findOneAndDelete({ _id: id, authorId: uid })
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this stickyNote", 400);
+    }
+  }
 }
 
 const _stickyNoteService = new StickyNoteService();

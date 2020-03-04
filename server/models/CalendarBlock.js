@@ -10,7 +10,7 @@ const CalendarBlock = new Schema(
     userId: { type: ObjectId, ref: "User", required: true, immutable: true }
     // why did i reference user twice????? If it aint broke.
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true } }
 );
 
 export default CalendarBlock;
