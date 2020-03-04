@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <router-view/>
+    <div class="nav">
+      <router-link to="/">Login</router-link>|
+      <router-link v-show="navCheck.navBool == true" to="/Calendar">Calendar|</router-link>
+      <router-link v-show="navCheck.navBool == true" to="/Postits">PostIts|</router-link>
+      <router-link v-show="navCheck.navBool == true" to="/Dashboard">Dashboard|</router-link>
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  data() {
+    return {
+      navCheck: {
+        navBool: false
+      }
+    };
+  }
 };
 </script>
 

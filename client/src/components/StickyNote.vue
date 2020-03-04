@@ -1,10 +1,12 @@
 <template>
-  
+  <div class="stickynote">
+    
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'List'
+  name: 'StickyNote'
 }
 </script>
 
