@@ -38,15 +38,20 @@ export default {
   },
   beforeCreate() {
     if (this.$store.state.user._id) {
-      this.$router.push({ name: "dashboard" });
+      this.$router.push({ name: "Dashboard" });
     }
   },
   methods: {
     register() {
-      this.$store.dispatch("register", this.newUser);
+      this.$store
+        .dispatch("register", this.newUser)
+        // change these to dispatches 
+        .then(res => (this.$store.state.bool1 = true));
+      // flips bool in this.$store.state.bool1 to true via dispatch.
     },
     loginUser() {
-      this.$store.dispatch("login", this.creds);
+      this.$store.dispatch("login", this.creds)
+      .then(res => (this.$store.state.bool1 = true);
     }
   }
 };

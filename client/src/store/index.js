@@ -17,7 +17,9 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    bool1: false,
+
   },
   mutations: {
     setUser(state, user) {
@@ -25,7 +27,8 @@ export default new Vuex.Store({
     },
     resetState(state) {
       state = {
-        user: {}
+        user: {},
+        bool1: false
       }
     },
     setItem(state, payload) {

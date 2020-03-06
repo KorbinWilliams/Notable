@@ -17,6 +17,9 @@ export default {
     return {
       navCheck: {
         navBool: false
+        // if (this.$store.state.bool1 == false) {
+        //
+        // }
       }
     };
   }
