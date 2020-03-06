@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div class="nav">
-      <router-link to="/">Login</router-link>|
-      <router-link v-show="navCheck.navBool == true" to="/Calendar">Calendar|</router-link>
+    <div class="nav container-fluid justify-content-center">
+      <router-link to="/">Login</router-link>
+      <router-link v-show="navCheck.navBool == true" to="/Calendar">| Calendar|</router-link>
       <router-link v-show="navCheck.navBool == true" to="/Postits">PostIts|</router-link>
       <router-link v-show="navCheck.navBool == true" to="/Dashboard">Dashboard|</router-link>
-      <router-view />
     </div>
+    <router-view />
   </div>
 </template>
 

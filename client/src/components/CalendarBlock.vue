@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <div class="calendarblock row"></div>
+</template>
 
 <script>
 export default {
