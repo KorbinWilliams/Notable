@@ -13,13 +13,20 @@
 <script>
 export default {
   name: "App",
+  beforeCreate() {
+    if (this.$store.state.bool1 == true) {
+      // this.$router.push({ name: "Dashboard" });
+      this.navCheck.navBool = true;
+    }
+  },
   data() {
     return {
       navCheck: {
         navBool: false
         // if (this.$store.state.bool1 == false) {
-        //
+        // this.navBool = true
         // }
+        // need this to run everytime
       }
     };
   }

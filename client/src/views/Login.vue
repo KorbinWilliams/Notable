@@ -42,16 +42,30 @@ export default {
     }
   },
   methods: {
+    //     setActive({ commit }, payload) {
+    //   commit(payload.commit, {
+    //     data: payload.data,
+    //     address: payload.commitAddress
+    //   })
+    // }
     register() {
-      this.$store
-        .dispatch("register", this.newUser)
-        // change these to dispatches 
-        .then(res => (this.$store.state.bool1 = true));
+      this.$store.dispatch("register", this.newUser).then(res =>
+        this.$store.dispatch("setActive", {
+          data: true,
+          commitAddress: "bool1"
+        })
+      );
+      // change these to dispatches
       // flips bool in this.$store.state.bool1 to true via dispatch.
     },
     loginUser() {
-      this.$store.dispatch("login", this.creds)
-      .then(res => (this.$store.state.bool1 = true);
+      this.$store.dispatch("login", this.creds).then(res =>
+        this.$store.dispatch("setActive", {
+          data: true,
+          commitAddress: "bool1",
+          commit: "setItem"
+        })
+      );
     }
   }
 };

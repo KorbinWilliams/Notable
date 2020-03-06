@@ -1,13 +1,11 @@
 <template>
-  <div class="stickynote">
-    
-  </div>
+  <div class="stickynote row"></div>
 </template>
 
 <script>
 export default {
-  name: 'StickyNote'
-}
+  name: "StickyNote"
+};
 </script>
 
 <style scoped>

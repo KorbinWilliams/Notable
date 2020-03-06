@@ -1,5 +1,5 @@
 <template>
-  <div class="weather"></div>
+  <div class="weather row"></div>
 </template>
 
 <script>
