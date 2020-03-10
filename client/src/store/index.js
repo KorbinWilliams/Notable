@@ -15,11 +15,20 @@ let api = Axios.create({
   withCredentials: true
 })
 
+// weatherApi Key = c108e787517dc67e1b16cd77c033c428
+let weatherApi = Axios.create({
+  baseURL: `api.openweathermap.org/data/2.5/forecast?q={${this.state.weatherInfo.city}},{${this.state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
+})
+
 export default new Vuex.Store({
   state: {
     user: {},
     bool1: false,
-
+    weaterInfo: {
+      city: "",
+      state: "",
+      // temp, etc.
+    }
   },
   mutations: {
     setUser(state, user) {
@@ -28,7 +37,12 @@ export default new Vuex.Store({
     resetState(state) {
       state = {
         user: {},
-        bool1: false
+        bool1: false,
+        weaterInfo: {
+          city: "",
+          state: "",
+          // temp, etc.
+        }
       }
     },
     setItem(state, payload) {

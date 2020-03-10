@@ -1,7 +1,12 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard container-fluid">
+    <div class="row">
+      <div class="col">
+        <p>Welcome to your dashboard</p>
+      </div>
+    </div>
     <StickyNote />
-    <p>Welcome to your dashboard</p>
+    <!-- component bootstrap structure will be row as top level then col NO CONTAINERS -->
   </div>
 </template>
 
