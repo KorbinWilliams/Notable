@@ -52,7 +52,8 @@ export default {
       this.$store.dispatch("register", this.newUser).then(res =>
         this.$store.dispatch("setActive", {
           data: true,
-          commitAddress: "bool1"
+          commitAddress: "bool1",
+          commit: "setItem"
         })
       );
       // change these to dispatches
