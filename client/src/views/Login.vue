@@ -39,6 +39,11 @@ export default {
   beforeCreate() {
     if (this.$store.state.user._id) {
       this.$router.push({ name: "Dashboard" });
+      this.$store.dispatch("setActive", {
+        data: true,
+        commitAddress: "bool1",
+        commit: "setItem"
+      });
     }
   },
   methods: {
@@ -49,24 +54,29 @@ export default {
     //   })
     // }
     register() {
-      this.$store.dispatch("register", this.newUser).then(res =>
-        this.$store.dispatch("setActive", {
-          data: true,
-          commitAddress: "bool1",
-          commit: "setItem"
-        })
-      );
-      // change these to dispatches
+      this.$store
+        .dispatch("register", this.newUser)
+        .then(res =>
+          this.$store.dispatch("setActive", {
+            data: true,
+            commitAddress: "bool1",
+            commit: "setItem"
+          })
+        )
+        .then(res => this.$router.push({ name: "Dashboard" }));
       // flips bool in this.$store.state.bool1 to true via dispatch.
     },
     loginUser() {
-      this.$store.dispatch("login", this.creds).then(res =>
-        this.$store.dispatch("setActive", {
-          data: true,
-          commitAddress: "bool1",
-          commit: "setItem"
-        })
-      );
+      this.$store
+        .dispatch("login", this.creds)
+        .then(res =>
+          this.$store.dispatch("setActive", {
+            data: true,
+            commitAddress: "bool1",
+            commit: "setItem"
+          })
+        )
+        .then(res => this.$router.push({ name: "Dashboard" }));
     }
   }
 };

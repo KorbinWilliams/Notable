@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <div class="nav container-fluid justify-content-center">
-      <router-link v-show="this.navBool == false" to="/">Login</router-link>
-      <router-link v-show="this.navBool == true" to="/Calendar">| Calendar|</router-link>
-      <router-link v-show="this.navBool == true" to="/Postits">PostIts|</router-link>
-      <router-link v-show="this.navBool == true" to="/Dashboard">Dashboard|</router-link>
+      <router-link v-show="this.$store.state.bool1 == false" to="/">Login</router-link>
+      <router-link v-show="this.$store.state.bool1 == true" to="/Calendar">Calendar</router-link>
+      <p>--</p>
+      <router-link v-show="this.$store.state.bool1 == true" to="/Postits">PostIts</router-link>
+      <p>--</p>
+      <router-link v-show="this.$store.state.bool1 == true" to="/Dashboard">Dashboard</router-link>
     </div>
     <router-view />
   </div>
@@ -12,13 +14,8 @@
 
 <script>
 export default {
-  name: "App",
-  // TODO change bool1 name
-  data() {
-    return {
-      navBool: this.$store.state.bool1
-    };
-  }
+  name: "App"
+  // TODO Change bool1 name in store and nav
 };
 </script>
 
