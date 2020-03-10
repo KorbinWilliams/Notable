@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard">
-    <StickyNote msg="Welcome to Your Dashboard" />
+    <StickyNote />
+    <p>Welcome to your dashboard</p>
   </div>
 </template>
 

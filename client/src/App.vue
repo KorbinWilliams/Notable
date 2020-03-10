@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="nav container-fluid justify-content-center">
-      <router-link to="/">Login</router-link>
+      <router-link v-show="navCheck.navBool == false" to="/">Login</router-link>
       <router-link v-show="navCheck.navBool == true" to="/Calendar">| Calendar|</router-link>
       <router-link v-show="navCheck.navBool == true" to="/Postits">PostIts|</router-link>
       <router-link v-show="navCheck.navBool == true" to="/Dashboard">Dashboard|</router-link>
@@ -13,21 +13,10 @@
 <script>
 export default {
   name: "App",
-  beforeCreate() {
-    if (this.$store.state.bool1 == true) {
-      // this.$router.push({ name: "Dashboard" });
-      this.navCheck.navBool = true;
-    }
-  },
+  // TODO change bool1 name
   data() {
     return {
-      navCheck: {
-        navBool: false
-        // if (this.$store.state.bool1 == false) {
-        // this.navBool = true
-        // }
-        // need this to run everytime
-      }
+      navBool: this.$store.state.bool1
     };
   }
 };
