@@ -7,6 +7,8 @@
     </div>
     <div class="row">
       <div class="col-3">
+        <!-- v-for stickynote change to make into col-3
+        with class: "col-3"-->
         <StickyNote />
       </div>
     </div>

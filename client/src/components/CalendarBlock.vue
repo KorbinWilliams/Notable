@@ -3,9 +3,11 @@
     <div class="col-12">
       <div class="row">
         <div class="col-12">
-          <p></p>
+          <p>Date</p>
         </div>
-        <div class="col-12"></div>
+        <div class="col-12">
+          <p>Activities v-for</p>
+        </div>
       </div>
     </div>
   </div>
@@ -13,7 +15,8 @@
 
 <script>
 export default {
-  name: "CalendarBlock"
+  name: "CalendarBlock",
+  props: []
 };
 </script>
 

@@ -4,10 +4,8 @@ import bp from 'body-parser'
 import DbContext from "./db/dbconfig"
 const server = express()
 
-//Fire up database connection
 DbContext.connect()
 
-//Sets the port to Heroku's, and the files to the built project 
 var port = process.env.PORT || 3000
 server.use(express.static(__dirname + '/../client/dist'))
 
@@ -28,17 +26,15 @@ server.use(bp.urlencoded({
   extended: true
 }))
 
-//REGISTER YOUR SESSION, OTHERWISE YOU WILL NEVER GET LOGGED IN
+// Auth
 import UserController from './controllers/UserController'
 import Session from "./middleware/session"
 server.use(new Session().express)
 server.use('/account', new UserController().router)
 
-
-//YOUR ROUTES HERE!!!!!!
+// Other Controllers
 import CalendarBlocksController from './controllers/CalendarBlocksController'
 import StickyNotesController from './controllers/StickyNotesController'
-
 server.use('/api/calendarBlocks', new CalendarBlocksController().router)
 server.use('/api/stickyNotes', new StickyNotesController().router)
 
