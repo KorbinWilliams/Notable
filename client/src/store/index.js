@@ -15,6 +15,8 @@ let api = Axios.create({
   withCredentials: true
 })
 
+// Experiment failed lol
+// TODO Fix this
 // weatherApi Key = c108e787517dc67e1b16cd77c033c428
 // let weatherApi = Axios.create({
 //   baseURL: `api.openweathermap.org/data/2.5/forecast?q={${this.state.weatherInfo.city}},{${this.state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
