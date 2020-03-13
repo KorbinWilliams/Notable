@@ -24,10 +24,9 @@ export default new Vuex.Store({
   state: {
     user: {},
     bool1: false,
-    weaterInfo: {
+    weatherInfo: {
       city: "",
-      state: "",
-      // temp, etc.
+      state: ""
     }
   },
   mutations: {
@@ -38,10 +37,9 @@ export default new Vuex.Store({
       state = {
         user: {},
         bool1: false,
-        weaterInfo: {
+        weatherInfo: {
           city: "",
-          state: "",
-          // temp, etc.
+          state: ""
         }
       }
     },
