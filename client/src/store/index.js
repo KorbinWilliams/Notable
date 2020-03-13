@@ -16,9 +16,9 @@ let api = Axios.create({
 })
 
 // weatherApi Key = c108e787517dc67e1b16cd77c033c428
-let weatherApi = Axios.create({
-  baseURL: `api.openweathermap.org/data/2.5/forecast?q={${this.state.weatherInfo.city}},{${this.state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
-})
+// let weatherApi = Axios.create({
+//   baseURL: `api.openweathermap.org/data/2.5/forecast?q={${this.state.weatherInfo.city}},{${this.state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
+// })
 
 export default new Vuex.Store({
   state: {
@@ -54,7 +54,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    //SECTION  -- AUTH STUFF --
+    //SECTION  -- AUTH --
     async register({ commit, dispatch }, creds) {
       try {
         let user = await AuthService.Register(creds)
