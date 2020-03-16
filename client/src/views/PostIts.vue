@@ -22,6 +22,13 @@ export default {
   name: "PostIts",
   components: {
     StickyNote
+  },
+  mounted() {
+    this.$store.dispatch("get", {
+      address: "stickyNotes",
+      commit: "setItem",
+      commitAddress: "stickyNotes"
+    });
   }
 };
 </script>

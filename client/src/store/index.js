@@ -29,7 +29,9 @@ export default new Vuex.Store({
     weatherInfo: {
       city: "",
       state: ""
-    }
+    },
+    stickyNotes: [],
+    calendarBlocks: []
   },
   mutations: {
     setUser(state, user) {
@@ -42,7 +44,9 @@ export default new Vuex.Store({
         weatherInfo: {
           city: "",
           state: ""
-        }
+        },
+        stickyNotes: [],
+        calendarBlocks: []
       }
     },
     setItem(state, payload) {
