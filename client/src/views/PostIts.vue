@@ -13,17 +13,17 @@
       </div>
       <div class="col-3 add-note ml-4">
         <div class="form-group">
-          <label>Name</label>
+          <label>Title</label>
           <input :v-bind="this.postIt.name" type="text" class="form-control" placeholder="Title" />
           <label>Text</label>
           <input
             :v-bind="this.postIt.description"
             type="text"
             class="form-control"
-            placeholder="Title"
+            placeholder="Text"
           />
         </div>
-        <button>addNote</button>
+        <button @submit="createStickyNote">addNote</button>
       </div>
     </div>
   </div>
@@ -52,6 +52,29 @@ export default {
       commit: "setItem",
       commitAddress: "stickyNotes"
     });
+  },
+  computed: {
+    notes() {
+      return this.$store.state.stickyNotes;
+    }
+  },
+  methods: {
+    createStickyNote() {
+      this.$store.dispatch("create", {
+        data: this.postIt,
+        address: "stickyNotes",
+        commitAddress: "stickyNotes",
+        commit: "addItem"
+      });
+    },
+    setActiveNote() {
+      this.$store.state.dispatch("setActive", {
+        data: "",
+        // data?
+        commitAddress: "activeStickyNote",
+        commit: "setItem"
+      });
+    }
   }
 };
 </script>

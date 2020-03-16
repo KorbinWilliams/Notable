@@ -67,16 +67,16 @@ export default {
       // flips bool in this.$store.state.bool1 to true via dispatch.
     },
     loginUser() {
-      this.$store
-        .dispatch("login", this.creds)
-        .then(res =>
+      this.$store.dispatch("login", this.creds).then(res => {
+        if (this.$store.state.user._id) {
+          this.$router.push({ name: "Dashboard" });
           this.$store.dispatch("setActive", {
             data: true,
             commitAddress: "bool1",
             commit: "setItem"
-          })
-        )
-        .then(res => this.$router.push({ name: "Dashboard" }));
+          });
+        }
+      });
     }
   }
 };
