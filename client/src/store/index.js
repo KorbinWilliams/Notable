@@ -31,7 +31,9 @@ export default new Vuex.Store({
       state: ""
     },
     stickyNotes: [],
-    calendarBlocks: []
+    calendarBlocks: [],
+    activeStickyNote: {},
+    activeCalendarBlock: {}
   },
   mutations: {
     setUser(state, user) {
@@ -46,7 +48,9 @@ export default new Vuex.Store({
           state: ""
         },
         stickyNotes: [],
-        calendarBlocks: []
+        calendarBlocks: [],
+        activeStickyNote: {},
+        activeCalendarBlock: {}
       }
     },
     setItem(state, payload) {
@@ -54,6 +58,9 @@ export default new Vuex.Store({
     },
     removeItem(state, payload) {
       state[payload.address].filter(item => item._id = payload.data._id)
+    },
+    addItem(state, payload) {
+      state[payload.address].push(payload.data)
     },
     resetItem(state, payload) {
       state[payload.address].clear()
