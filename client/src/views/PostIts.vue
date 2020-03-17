@@ -6,24 +6,17 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-3 offset-1">
-        <!-- v-for stickynote change to make into col-3
-        with class: "col-3"-->
-        <StickyNote />
-      </div>
+      <!-- v-for stickynote change to make into col-3
+      with class: "col-3"-->
+      <StickyNote v-for="note in notes" :Note="note" :key="note._id" class="col-3 offset-1" />
       <div class="col-3 add-note ml-4">
         <div class="form-group">
           <label>Title</label>
-          <input :v-bind="this.postIt.name" type="text" class="form-control" placeholder="Title" />
+          <input v-model="postIt.name" type="text" class="form-control" placeholder="Title" />
           <label>Text</label>
-          <input
-            :v-bind="this.postIt.description"
-            type="text"
-            class="form-control"
-            placeholder="Text"
-          />
+          <input v-model="postIt.description" type="text" class="form-control" placeholder="Text" />
+          <button @click="createStickyNote">addNote</button>
         </div>
-        <button @submit="createStickyNote">addNote</button>
       </div>
     </div>
   </div>

@@ -35,8 +35,13 @@ server.use('/account', new UserController().router)
 // Other Controllers
 import CalendarBlocksController from './controllers/CalendarBlocksController'
 import StickyNotesController from './controllers/StickyNotesController'
+
 server.use('/api/calendarBlocks', new CalendarBlocksController().router)
 server.use('/api/stickyNotes', new StickyNotesController().router)
+
+
+
+
 
 
 //NOTE Default error handler, catches all routes with an error attached

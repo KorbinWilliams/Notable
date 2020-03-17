@@ -25,7 +25,7 @@ export default class StickyNoteController {
   async getAll(req, res, next) {
     try {
       let data = await _stickyNoteService.getAll(req.session.uid)
-      return data
+      return res.send(data)
     } catch (error) {
       next(error)
     }

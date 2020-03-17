@@ -1,7 +1,8 @@
 <template>
   <div class="stickynote row">
     <div class="col-12 bg-ylw">
-      <p>PostIt</p>
+      <h3>{{Note.name}}</h3>
+      <p>{{Note.description}}</p>
     </div>
   </div>
 </template>
