@@ -6,10 +6,10 @@
       </div>
     </div>
     <div class="row">
-      <!-- v-for stickynote change to make into col-3
-      with class: "col-3"-->
       <StickyNote v-for="note in notes" :Note="note" :key="note._id" class="col-3 offset-1" />
-      <div class="col-3 add-note ml-4">
+    </div>
+    <div class="row">
+      <div class="col-3 add-note offset-1">
         <div class="form-group">
           <label>Title</label>
           <input v-model="postIt.name" type="text" class="form-control" placeholder="Title" />
@@ -30,6 +30,13 @@ export default {
   components: {
     StickyNote
   },
+  mounted() {
+    this.$store.dispatch("get", {
+      address: "stickyNotes",
+      commit: "setItem",
+      commitAddress: "stickyNotes"
+    });
+  },
   data() {
     return {
       postIt: {
@@ -39,13 +46,7 @@ export default {
       }
     };
   },
-  mounted() {
-    this.$store.dispatch("get", {
-      address: "stickyNotes",
-      commit: "setItem",
-      commitAddress: "stickyNotes"
-    });
-  },
+
   computed: {
     notes() {
       return this.$store.state.stickyNotes;
@@ -59,6 +60,11 @@ export default {
         commitAddress: "stickyNotes",
         commit: "addItem"
       });
+      this.postIt = {
+        name: "",
+        description: "",
+        authorId: this.$store.state.user._id
+      };
     },
     setActiveNote() {
       this.$store.state.dispatch("setActive", {
