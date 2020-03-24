@@ -1,12 +1,25 @@
 <template>
   <div class="stickynote row">
     <div class="col-12 bg-ylw">
-      <div>
-        <select @click="setActiveStickyNote" text="Dropdown Button">
-          <option @change="deleteStickyNote">Delete</option>
-          <option @change="editStickyNote">Edit</option>
-        </select>
-        <!-- @change will only work on the select tag itself need to find another way to do the dropdown -->
+      <!-- TODO make this look nice-->
+      <div class="row">
+        <div class="col d-flex justify-content-end">
+          <button @click="toggleOptions(), setActiveStickyNote()">
+            <img
+              class="dots-btn"
+              src="https://pngimage.net/wp-content/uploads/2018/06/3-dots-png-5.png"
+              alt="dots"
+            />
+          </button>
+        </div>
+      </div>
+      <div v-show="this.optionBool == true" class="row">
+        <div class="col-6">
+          <button @click="deleteStickyNote">Delete Note</button>
+        </div>
+        <div class="col-6">
+          <button @click="editStickyNote">Edit Note</button>
+        </div>
       </div>
       <h3>{{Note.name}}</h3>
       <p>{{Note.description}}</p>
@@ -18,19 +31,20 @@
 export default {
   name: "StickyNote",
   props: ["Note"],
+  data() {
+    return {
+      optionBool: false
+    };
+  },
   methods: {
+    toggleOptions() {
+      if (this.optionBool == false) {
+        this.optionBool = true;
+      } else {
+        this.optionBool = false;
+      }
+    },
     setActiveStickyNote() {
-      console.log(this.Note);
-      // let thisNote = {
-      //   _id: this.Note._id,
-      //   name: this.Note.name,
-      //   description = this.Note.description,
-      //   authorId = this.Note.authorId,
-      //   createdAt = this.Note.createdAt,
-      //   updatedAt = this.Note.updatedAt,
-      //   _v: this.Note._v,
-      //   id: this.Note.id
-      // };
       this.$store.dispatch("setActive", {
         data: this.Note,
         commitAddress: "activeStickyNote",
@@ -66,5 +80,8 @@ export default {
 }
 .trash-img {
   height: 2rem;
+}
+.dots-btn {
+  height: 1rem;
 }
 </style>

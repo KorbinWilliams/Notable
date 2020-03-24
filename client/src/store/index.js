@@ -15,7 +15,7 @@ let api = Axios.create({
   withCredentials: true
 })
 
-// Experiment failed lol
+// NOTE Experiment failed lol
 // TODO Fix this
 // weatherApi Key = c108e787517dc67e1b16cd77c033c428
 // let weatherApi = Axios.create({
