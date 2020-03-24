@@ -2,7 +2,7 @@
   <div class="stickynote row">
     <div class="col-12 bg-ylw">
       <div>
-        <select text="Dropdown Button">
+        <select @click="setActiveStickyNote" text="Dropdown Button">
           <option @change="deleteStickyNote">Delete</option>
           <option @change="editStickyNote">Edit</option>
         </select>
@@ -19,14 +19,25 @@ export default {
   name: "StickyNote",
   props: ["Note"],
   methods: {
-    setActiveStickyNote(Note) {
-      this.$store.state.dispatch("setActive", {
-        data: Note,
-        commitAddress: "activeStickyNote"
+    setActiveStickyNote() {
+      console.log(this.Note);
+      // let thisNote = {
+      //   _id: this.Note._id,
+      //   name: this.Note.name,
+      //   description = this.Note.description,
+      //   authorId = this.Note.authorId,
+      //   createdAt = this.Note.createdAt,
+      //   updatedAt = this.Note.updatedAt,
+      //   _v: this.Note._v,
+      //   id: this.Note.id
+      // };
+      this.$store.dispatch("setActive", {
+        data: this.Note,
+        commitAddress: "activeStickyNote",
+        commit: "setItem"
       });
     },
     deleteStickyNote() {
-      debugger;
       this.$store.dispatch("delete", {
         data: this.$store.state.activeStickyNote,
         address: "stickyNotes",

@@ -32,6 +32,10 @@ const routes = [
     path: '/Postits',
     name: 'Postits',
     component: Postits
+  },
+  {
+    path: "*",
+    redirect: "/"
   }
 ]
 

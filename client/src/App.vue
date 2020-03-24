@@ -16,8 +16,7 @@
 export default {
   name: "App",
   mounted() {
-    debugger;
-    if (!this.$store.state.user._id) {
+    if (this.$store.state.user._id !== null) {
       this.$store.dispatch("setActive", {
         data: true,
         commitAddress: "bool1",
@@ -26,7 +25,7 @@ export default {
       this.$router.push({ name: "Dashboard" });
     }
   }
-  // TODO think of a better way to flip bool on page open -include in login function?
+  // TODO Make a logout button
   // TODO Change bool1 name in store and nav
 };
 </script>
