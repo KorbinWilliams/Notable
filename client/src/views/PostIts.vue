@@ -1,5 +1,5 @@
 <template>
-  <div class="postits container-fluid">
+  <div class="postits container-fluid bg-cork-board">
     <div class="row">
       <div class="col-12 top-bar">
         <h1>Post-Its</h1>
@@ -89,5 +89,10 @@ export default {
   border: 2px solid black;
   height: 20%;
   width: 20%;
+}
+.bg-cork-board {
+  background-image: url(https://previews.123rf.com/images/mexrix/mexrix1206/mexrix120600069/14260342-brown-cork-board-for-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

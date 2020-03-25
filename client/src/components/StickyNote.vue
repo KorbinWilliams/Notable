@@ -4,6 +4,7 @@
       <!-- TODO make this look nice-->
       <div class="row">
         <div class="col d-flex justify-content-end">
+          <img src="https://imgur.com/DuIKmrh" alt="push-pin" />
           <button @click="toggleOptions(), setActiveStickyNote()">
             <img
               class="dots-btn"
@@ -17,6 +18,7 @@
         <div class="col-6">
           <button @click="deleteStickyNote">Delete Note</button>
         </div>
+        <!-- TODO Make this an on click edit event??? -->
         <div class="col-6">
           <button @click="editStickyNote">Edit Note</button>
         </div>
@@ -59,6 +61,7 @@ export default {
         commit: "removeItem"
       });
     },
+    // TODO Make this an on click edit event???
     editStickyNote() {
       this.$store.dispatch("delete", {
         data: this.$store.state.activeStickyNote,

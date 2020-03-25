@@ -26,6 +26,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     bool1: false,
+    // NOTE Wow you can just edit this in vue dev tools and change it
     weatherInfo: {
       city: "",
       state: ""
