@@ -3,8 +3,8 @@
     <div class="col-12 bg-ylw">
       <!-- TODO make this look nice-->
       <div class="row">
-        <div class="col d-flex justify-content-end">
-          <img src="https://imgur.com/DuIKmrh" alt="push-pin" />
+        <div class="col d-flex justify-content-between">
+          <img class="push-pin" src="https://i.imgur.com/DuIKmrh.jpg" alt="push-pin" />
           <button @click="toggleOptions(), setActiveStickyNote()">
             <img
               class="dots-btn"
@@ -77,7 +77,7 @@ export default {
 <style scoped>
 .bg-ylw {
   margin: 5vh 0 5vh 0;
-  background-color: yellow;
+  background-color: #fef200;
   border: 2px solid black;
   margin-left: 2vw;
 }
@@ -86,5 +86,11 @@ export default {
 }
 .dots-btn {
   height: 1rem;
+}
+.push-pin {
+  height: 2rem;
+  border-top-color: black;
+  border-top-style: solid;
+  border-top-width: thin;
 }
 </style>

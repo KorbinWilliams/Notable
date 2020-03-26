@@ -8,7 +8,9 @@
     </div>
     <div class="row">
       <div class="col-8 offset-2">
-        <!-- How am I gonna v-for for 7 days? -->
+        <!--NOTE How am I gonna v-for for 7 days? 
+        I'm not, change calendar blocks to just events. don't save the whole calendarblock. filter events where data: month / day == event.date?
+        put into premade calendar with preset days-->
         <div class="row">
           <div class="col-1">day</div>
           <div class="col-1">day</div>
