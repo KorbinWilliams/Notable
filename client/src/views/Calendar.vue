@@ -18,17 +18,17 @@
         dow = [SUN,MON,TUES,WED,THUR,FRI,SAT]
         (where do i put dow?)
         Need a basis so let year.JAN.days[0].dow = WED 
-        let months[month] - 1 == lastMonth
+        let months[month] - 1 = lastMonth
         let lastMonth.days.length - 1 = lastDay
         let curDow = lastday.dow + 1
         -->
         <!-- NOTE ARRANGING DAYS IN CALENDER: (Can I make a more customized v-for? if so, v-for over month.days let month.days[0].dow = curDow )  -->
         <!-- NOTE BACKEND CHANGES: remove calendarBlocks
         Date? {
-          Year: 2020
+          Year: 2020,
           Months: [JAN: {days: 1-31},FEB: {days: 1-28},MAR: {days: 1-31},APR: {days: 1-30},MAY: {days: 1-30},JUN: {days: 1-30},JUL: {days: 1-31},AUG: {days: 1-31},SEP: {days: 1-30},OCT: {days: 1-31},NOV: {days: 1-30},DEC: {days: 1-31}],
           Dow: [SUN,MON,TUES,WED,THUR,FRI,SAT]
-        } -->
+        }-->
         <div class="row d-flex justify-content-center">
           <div class="col-1 cal-block">day</div>
           <div class="col-1 cal-block">day</div>

@@ -1,9 +1,9 @@
-import _calendarBlockService from "../services/CalendarBlocksService";
+import _DateService from "../services/DateService";
 import express from "express";
 import { Authorize } from "../middleware/authorize.js";
 
 //PUBLIC
-export default class CalendarBlockController {
+export default class DatesController {
   constructor() {
     this.router = express
       .Router()
@@ -24,7 +24,7 @@ export default class CalendarBlockController {
 
   async getAll(req, res, next) {
     try {
-      let data = await _calendarBlockService.getAll(req.session.uid);
+      let data = await _DateService.getAll(req.session.uid);
       console.log(data);
       return res.send(data);
     } catch (error) {
@@ -34,7 +34,7 @@ export default class CalendarBlockController {
 
   async getById(req, res, next) {
     try {
-      let data = await _calendarBlockService.getById(req.params.id, req.session.uid);
+      let data = await _DateService.getById(req.params.id, req.session.uid);
       return res.send(data);
     } catch (error) {
       next(error);
@@ -44,7 +44,7 @@ export default class CalendarBlockController {
   // async getByDate(req, res, next) {
   //   try {
   //     // req.body.date, traded for req.params.date
-  //     let data = await _calendarBlockService.getByDate(req.params.date)
+  //     let data = await _DateService.getByDate(req.params.date)
   //     return res.send(data);
   //   } catch (error) {
   //     next(error)
@@ -54,7 +54,7 @@ export default class CalendarBlockController {
   async create(req, res, next) {
     try {
       req.body.authorId = req.session.uid;
-      let data = await _calendarBlockService.create(req.body);
+      let data = await _DateService.create(req.body);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
@@ -63,7 +63,7 @@ export default class CalendarBlockController {
 
   async edit(req, res, next) {
     try {
-      let data = await _calendarBlockService.edit(
+      let data = await _DateService.edit(
         req.params.id,
         req.session.uid,
         req.body
@@ -76,7 +76,7 @@ export default class CalendarBlockController {
 
   async delete(req, res, next) {
     try {
-      await _calendarBlockService.delete(req.params.id, req.session.uid);
+      await _DateService.delete(req.params.id, req.session.uid);
       return res.send("Successfully deleted");
     } catch (error) {
       next(error);

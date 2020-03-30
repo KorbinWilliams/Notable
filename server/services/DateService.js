@@ -1,10 +1,10 @@
 import mongoose from "mongoose"
-import CalendarBlock from "../models/CalendarBlock"
+import Date from "../models/Date"
 import ApiError from "../utils/ApiError"
 
-const _repository = mongoose.model('CalendarBlock', CalendarBlock)
+const _repository = mongoose.model('Date', Date)
 
-class CalendarBlocksService {
+class DateService {
   async getAll(userId) {
     return await _repository.find({ authorId: userId })
   }
@@ -12,7 +12,7 @@ class CalendarBlocksService {
   async getById(id, userId) {
     let data = await _repository.findOne({ _id: id, authorId: userId })
     if (!data) {
-      throw new ApiError("Invalid ID or you do not own this CalendarBlock", 400)
+      throw new ApiError("Invalid ID or you do not own this Date", 400)
     }
     return data
   }
@@ -25,7 +25,7 @@ class CalendarBlocksService {
   async edit(id, userId, update) {
     let data = await _repository.findOneAndUpdate({ _id: id, authorId: userId }, update, { new: true })
     if (!data) {
-      throw new ApiError("Invalid ID or you do not own this CalendarBlock", 400);
+      throw new ApiError("Invalid ID or you do not own this Date", 400);
     }
     return data;
   }
@@ -33,12 +33,11 @@ class CalendarBlocksService {
   async delete(id, userId) {
     let data = await _repository.findOneAndRemove({ _id: id, authorId: userId });
     if (!data) {
-      throw new ApiError("Invalid ID or you do not own this calendarBlock", 400);
+      throw new ApiError("Invalid ID or you do not own this date", 400);
     }
   }
-
 }
 
 
-const _calendarBlocksService = new CalendarBlocksService()
-export default _calendarBlocksService
+const _dateService = new DateService()
+export default _dateService
