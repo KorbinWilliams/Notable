@@ -33,10 +33,10 @@ server.use(new Session().express)
 server.use('/account', new UserController().router)
 
 // Other Controllers
-import DatesController from './controllers/DatesController'
+import CalendarController from './controllers/CalendarController'
 import StickyNotesController from './controllers/StickyNotesController'
 
-server.use('/api/dates', new DatesController().router)
+server.use('/api/calendar', new CalendarController().router)
 server.use('/api/stickyNotes', new StickyNotesController().router)
 
 

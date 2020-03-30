@@ -32,9 +32,9 @@ export default new Vuex.Store({
       state: ""
     },
     stickyNotes: [],
-    calendarBlocks: [],
+    calendar: [],
     activeStickyNote: {},
-    activeCalendarBlock: {}
+    activeMonth: {}
   },
   mutations: {
     setUser(state, user) {
@@ -49,9 +49,9 @@ export default new Vuex.Store({
           state: ""
         },
         stickyNotes: [],
-        calendarBlocks: [],
+        calendar: [],
         activeStickyNote: {},
-        activeCalendarBlock: {}
+        activeMonth: {}
       }
     },
     setItem(state, payload) {
