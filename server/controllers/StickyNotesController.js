@@ -16,7 +16,6 @@ export default class StickyNoteController {
       .use(this.defaultRoute)
   }
 
-  // this is pretty neat
 
   defaultRoute(req, res, next) {
     next({ status: 404, message: 'No Such Route' })
@@ -39,6 +38,7 @@ export default class StickyNoteController {
     } catch (error) { next(error) }
   }
 
+  // Pretty sure this needs a req.session.uid
   async getById(req, res, next) {
     try {
       let data = await _stickyNoteService.getById(req.body.id)

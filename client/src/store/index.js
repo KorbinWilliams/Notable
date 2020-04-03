@@ -25,8 +25,7 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    bool1: false,
-    // NOTE Wow you can just edit this in vue dev tools and change it
+    isLoggedIn: false,
     weatherInfo: {
       city: "",
       state: ""
@@ -43,7 +42,7 @@ export default new Vuex.Store({
     resetState(state) {
       state = {
         user: {},
-        bool1: false,
+        isLoggedIn: false,
         weatherInfo: {
           city: "",
           state: ""
@@ -90,7 +89,7 @@ export default new Vuex.Store({
     async logout({ commit, dispatch }) {
       try {
         let success = await AuthService.Logout()
-        if (!success) { }
+        if (!success) { console.log("Something went wrong lol.") }
         commit('resetState')
         router.push({ name: "login" })
       } catch (e) {

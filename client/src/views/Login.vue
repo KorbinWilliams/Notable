@@ -33,6 +33,9 @@ export default {
         email: "",
         password: "",
         name: ""
+      },
+      newCalendar: {
+        events: []
       }
     };
   },
@@ -41,12 +44,13 @@ export default {
       this.$router.push({ name: "Dashboard" });
       this.$store.dispatch("setActive", {
         data: true,
-        commitAddress: "bool1",
+        commitAddress: "isLoggedIn",
         commit: "setItem"
       });
     }
   },
   methods: {
+    // NOTE Example dispatch
     //     setActive({ commit }, payload) {
     //   commit(payload.commit, {
     //     data: payload.data,
@@ -54,17 +58,26 @@ export default {
     //   })
     // }
     register() {
+      // TODO Find way to get current date
+      // NOTE registers user, creates new calendar, then changes view to dashboard
       this.$store
         .dispatch("register", this.newUser)
         .then(res =>
           this.$store.dispatch("setActive", {
             data: true,
-            commitAddress: "bool1",
+            commitAddress: "isLoggedIn",
             commit: "setItem"
           })
         )
+        .then(res =>
+          this.$store.dispatch("create", {
+            data: this.newCalendar,
+            commit: "setItem",
+            commitAddress: "calendar",
+            address: "calendar"
+          })
+        )
         .then(res => this.$router.push({ name: "Dashboard" }));
-      // flips bool in this.$store.state.bool1 to true via dispatch.
     },
     loginUser() {
       this.$store.dispatch("login", this.creds).then(res => {
@@ -72,7 +85,7 @@ export default {
           this.$router.push({ name: "Dashboard" });
           this.$store.dispatch("setActive", {
             data: true,
-            commitAddress: "bool1",
+            commitAddress: "isLoggedIn",
             commit: "setItem"
           });
         }
