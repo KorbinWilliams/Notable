@@ -5,8 +5,8 @@ import ApiError from "../utils/ApiError"
 const _repository = mongoose.model('Calendar', Calendar)
 
 class CalendarService {
-  async getAll() {
-    return await _repository.find()
+  async getAll(uid) {
+    return await _repository.find({ authorId: uid })
   }
 
   // async getById(id, userId) {
@@ -17,18 +17,18 @@ class CalendarService {
   //   return data
   // }
 
-  // async create(rawData) {
-  //   let data = await _repository.create(rawData)
-  //   return data
-  // }
+  async create(rawData) {
+    let data = await _repository.create(rawData)
+    return data
+  }
 
-  // async edit(id, userId, upcalendar) {
-  //   let data = await _repository.findOneAndUpcalendar({ _id: id, authorId: userId }, upcalendar, { new: true })
-  //   if (!data) {
-  //     throw new ApiError("Invalid ID or you do not own this Calendar", 400);
-  //   }
-  //   return data;
-  // }
+  async edit(id, userId, upcalendar) {
+    let data = await _repository.findOneAndUpdate({ _id: id, authorId: userId }, upcalendar, { new: true })
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this Calendar", 400);
+    }
+    return data;
+  }
 
   // async delete(id, userId) {
   //   let data = await _repository.findOneAndRemove({ _id: id, authorId: userId });
