@@ -88,10 +88,18 @@ export default new Vuex.Store({
     },
     async logout({ commit, dispatch }) {
       try {
+        debugger;
         let success = await AuthService.Logout()
-        if (!success) { console.log("Something went wrong lol.") }
+        if (!success) {
+          console.log("Something went wrong lol.")
+        }
         commit('resetState')
-        router.push({ name: "login" })
+        router.push({ name: "/" })
+        // dispatch("setActive", {
+        //   data: false,
+        //   commitAddress: "isLoggedIn",
+        //   commit: "setItem"
+        // })
       } catch (e) {
         console.warn(e.message)
       }

@@ -9,7 +9,7 @@
       <p>--</p>
       <router-link v-show="this.$store.state.isLoggedIn == true" to="/Dashboard">Dashboard</router-link>
       <p>--</p>
-      <router-link v-show="this.$store.state.isLoggedIn == true" @click="logout" to="/login">Logout</router-link>
+      <button type="button" v-show="this.$store.state.isLoggedIn == true" @click="logout">Logout</button>
     </div>
     <router-view />
   </div>
@@ -30,7 +30,11 @@ export default {
   },
   methods: {
     logout() {
-      debugger;
+      this.$store.dispatch("setActive", {
+        data: false,
+        commitAddress: "isLoggedIn",
+        commit: "setItem"
+      });
       this.$store.dispatch("logout");
     }
   }
