@@ -40,18 +40,16 @@ export default new Vuex.Store({
       state.user = user
     },
     resetState(state) {
-      state = {
-        user: {},
-        isLoggedIn: false,
-        weatherInfo: {
+      state.user = {},
+        state.isLoggedIn = false,
+        state.weatherInfo = {
           city: "",
           state: ""
         },
-        stickyNotes: [],
-        calendar: {},
-        activeStickyNote: {},
-        activeMonth: {}
-      }
+        state.stickyNotes = [],
+        state.calendar = {},
+        state.activeStickyNote = {},
+        state.activeMonth = {}
     },
     setItem(state, payload) {
       state[payload.address] = payload.data;
@@ -86,18 +84,17 @@ export default new Vuex.Store({
         console.warn(e.message)
       }
     },
-    async logout({ commit, dispatch }) {
-      commit('resetState')
-      setTimeout(() => router.push({ name: "Login" }), 500)
+    async logout({ commit }) {
+      // NOTE It is getting to the mutation resetState, but not actually wworking.
       try {
-        let success = await AuthService.Logout()
+        let success = await AuthService.Logout();
         if (!success) {
-          console.log("Something went wrong lol.")
         }
-        setTimeout(() => router.push({ name: "Login" }), 500)
+        commit("resetState");
       } catch (e) {
-        console.warn(e.message)
+        console.warn(e.message);
       }
+      router.push({ name: "Login" });
     },
     // SECTION functional actions
     get({ commit }, payload) {
