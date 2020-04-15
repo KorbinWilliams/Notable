@@ -39,16 +39,17 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    if (this.$store.state.user._id) {
-      this.$router.push({ name: "Dashboard" });
-      this.$store.dispatch("setActive", {
-        data: true,
-        commitAddress: "isLoggedIn",
-        commit: "setItem"
-      });
-    }
-  },
+  // TODO Fix this. First fix resetState in store
+  // beforeCreate() {
+  //   if (this.$store.state.user._id) {
+  //     this.$router.push({ name: "Dashboard" });
+  //     this.$store.dispatch("setActive", {
+  //       data: true,
+  //       commitAddress: "isLoggedIn",
+  //       commit: "setItem"
+  //     });
+  //   }
+  // },
   methods: {
     // NOTE Example dispatch
     //     setActive({ commit }, payload) {
@@ -69,6 +70,7 @@ export default {
             commit: "setItem"
           })
         )
+        // {"error":{"message":"Calendar validation failed: userId: Path `userId` is required."}}
         .then(res =>
           this.$store.dispatch("create", {
             data: this.newCalendar,

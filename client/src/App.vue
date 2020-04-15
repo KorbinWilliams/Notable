@@ -19,7 +19,9 @@
 export default {
   name: "App",
   mounted() {
-    if (this.$store.state.user._id !== null) {
+    // TODO Fix this
+    console.log(this.$store.user._id);
+    if (this.$store.state.user._id.length > 3) {
       this.$store.dispatch("setActive", {
         data: true,
         commitAddress: "isLoggedIn",
@@ -30,15 +32,14 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("setActive", {
-        data: false,
-        commitAddress: "isLoggedIn",
-        commit: "setItem"
-      });
+      // this.$store.dispatch("setActive", {
+      //   data: false,
+      //   commitAddress: "isLoggedIn",
+      //   commit: "setItem"
+      // });
       this.$store.dispatch("logout");
     }
   }
-  // TODO Make a logout button
 };
 </script>
 
