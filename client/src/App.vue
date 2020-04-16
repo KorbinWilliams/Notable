@@ -65,7 +65,8 @@ export default {
   color: #42b983;
 }
 
-body {
+body,
+html {
   /* TODO figure out how to do this in vue (in each component?) */
   height: 100%;
   width: 100%;

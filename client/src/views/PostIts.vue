@@ -95,8 +95,10 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
-/* body {
+body {
   height: 100%;
-  width: 100%;
-} */
+  margin: 0;
+  padding: 0;
+  background-color: #404740;
+}
 </style>
