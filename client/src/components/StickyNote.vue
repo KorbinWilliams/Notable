@@ -14,12 +14,12 @@
           </button>
         </div>
       </div>
-      <div v-show="this.optionBool == true" class="row">
-        <div class="col-6">
+      <div class="row options">
+        <div v-show="this.optionBool == true" class="col-6">
           <button @click="deleteStickyNote">Delete Note</button>
         </div>
         <!-- TODO Make this an on click edit event??? -->
-        <div class="col-6">
+        <div v-show="this.optionBool == true" class="col-6">
           <button @click="editStickyNote">Edit Note</button>
         </div>
       </div>
@@ -92,5 +92,9 @@ export default {
   border-top-color: black;
   border-top-style: solid;
   border-top-width: thin;
+}
+/* NOTE Change this and stickyNote so that on click sticky note turns grey except for buttons? */
+.options {
+  height: 3rem;
 }
 </style>

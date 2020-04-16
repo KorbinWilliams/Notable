@@ -95,4 +95,8 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
+/* body {
+  height: 100%;
+  width: 100%;
+} */
 </style>
