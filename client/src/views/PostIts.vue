@@ -78,7 +78,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .top-bar {
   background-color: rgb(255, 238, 0);
   border: 3px solid black;
@@ -94,11 +94,5 @@ export default {
   background-image: url(https://previews.123rf.com/images/mexrix/mexrix1206/mexrix120600069/14260342-brown-cork-board-for-background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-}
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #404740;
 }
 </style>

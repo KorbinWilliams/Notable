@@ -67,8 +67,9 @@ export default {
 
 body,
 html {
-  /* TODO figure out how to do this in vue (in each component?) */
   height: 100%;
-  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #404740;
 }
 </style>

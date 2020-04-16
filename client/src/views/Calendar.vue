@@ -2,7 +2,7 @@
   <div class="calendar container-fluid">
     <div class="row top-bar">
       <!-- Display active month if there is no active month set active month to current month -->
-      <div class="col">
+      <div class="col-12">
         <h1>Month</h1>
       </div>
     </div>
@@ -84,8 +84,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .cal-block {
   height: 10rem;
+  color: whitesmoke;
+}
+/* TODO Make v-if for background color dependent on month */
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #4f488f;
+}
+.top-bar {
+  background-color: rgb(35, 131, 134);
+  border: 3px solid black;
 }
 </style>
