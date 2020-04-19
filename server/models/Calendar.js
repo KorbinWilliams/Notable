@@ -8,73 +8,85 @@ const Calendar = new Schema(
     Year: { type: Number, default: 2020 },
     Dow: { type: Array, default: ["SUN", "MON", "TUES", "WED", "THU", "FRI", "SAT"], unmodifiable: true },
     Months: {
-      Jan: {
+      1: {
+        name: "January",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
         }
       },
-      Feb: {
+      2: {
+        name: "February",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
         }
       },
-      Mar: {
+      3: {
+        name: "March",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
         }
       },
-      Apr: {
+      4: {
+        name: "April",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         }
       },
-      May: {
+      5: {
+        name: "May",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         }
       },
-      Jun: {
+      6: {
+        name: "June",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         }
       },
-      Jul: {
+      7: {
+        name: "July",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
         }
       },
-      Aug: {
+      8: {
+        name: "August",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
         }
       },
-      Sep: {
+      9: {
+        name: "September",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         }
       },
-      Oct: {
+      10: {
+        name: "October",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
         }
       },
-      Nov: {
+      11: {
+        name: "November",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         }
       },
-      Dec: {
+      12: {
+        name: "December",
         days: {
           type: Array, unmodifiable: true, default:
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]

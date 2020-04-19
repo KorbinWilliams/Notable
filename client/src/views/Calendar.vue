@@ -80,6 +80,36 @@ export default {
       commit: "setItem",
       commitAddress: "calendar"
     });
+    var currentDate = new Date();
+    console.log(currentDate);
+
+    var currentDateWithFormat = new Date()
+      .toJSON()
+      .slice(0, 10)
+      .replace(/-/g, "/");
+    console.log(currentDateWithFormat);
+
+    this.$store.state.calendar;
+  },
+  methods: {
+    getDate() {
+      var currentDate = new Date();
+      console.log(currentDate);
+
+      var currentDateWithFormat = new Date()
+        .toJSON()
+        .slice(0, 10)
+        .replace(/-/g, "/");
+      console.log(currentDateWithFormat);
+    }
+  },
+  computed: {
+    Month() {
+      return this.$store.state.activeMonth;
+    },
+    Calendar() {
+      return this.$store.state.calendar;
+    }
   }
 };
 </script>
