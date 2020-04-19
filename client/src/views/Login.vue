@@ -73,7 +73,11 @@ export default {
         // {"error":{"message":"Calendar validation failed: userId: Path `userId` is required."}}
         .then(res =>
           this.$store.dispatch("create", {
-            data: this.newCalendar,
+            data: {
+              name: this.$store.state.username,
+              email: this.$store.state.user.email,
+              userId: this.$store.state.user._id
+            },
             commit: "setItem",
             commitAddress: "calendar",
             address: "calendar"
