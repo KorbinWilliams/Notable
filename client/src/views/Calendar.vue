@@ -87,9 +87,17 @@ export default {
       .toJSON()
       .slice(0, 10)
       .replace(/-/g, "/");
-    console.log(currentDateWithFormat);
+    console.log(currentDateWithFormat + " current date");
 
-    this.$store.state.calendar;
+    let curMonth = currentDateWithFormat[5] + currentDateWithFormat[6];
+    console.log(curMonth + " curMonth");
+
+    let cal = this.$store.state.calendar;
+    this.$store.state.calendar.Months.find(
+      m => m == curMonth[1] || m == curMonth[0] + curMonth[1]
+    );
+    console.log(Month + "activeMonth");
+    console.log(cal);
   },
   methods: {
     getDate() {
