@@ -3,7 +3,7 @@
     <div class="row top-bar">
       <!-- Display active month if there is no active month set active month to current month -->
       <div class="col-12">
-        <h1>Month</h1>
+        <h1>{{Month}}</h1>
       </div>
     </div>
     <div class="row">
@@ -75,40 +75,41 @@
 export default {
   name: "Calendar",
   mounted() {
-    this.$store.dispatch("get", {
-      address: "calendar",
-      commit: "setItem",
-      commitAddress: "calendar"
-    });
-    var currentDate = new Date();
-    console.log(currentDate);
-
-    var currentDateWithFormat = new Date()
-      .toJSON()
-      .slice(0, 10)
-      .replace(/-/g, "/");
-    console.log(currentDateWithFormat + " current date");
-
-    let curMonth = currentDateWithFormat[5] + currentDateWithFormat[6];
-    console.log(curMonth + " curMonth");
-
-    let cal = this.$store.state.calendar;
-    this.$store.state.calendar.Months.find(
-      m => m == curMonth[1] || m == curMonth[0] + curMonth[1]
-    );
-    console.log(Month + "activeMonth");
-    console.log(cal);
+    this.$store
+      .dispatch("get", {
+        address: "calendar",
+        commit: "setItem",
+        commitAddress: "calendar"
+      })
+      .then(res => this.getDate());
   },
   methods: {
     getDate() {
-      var currentDate = new Date();
+      let currentDate = new Date();
       console.log(currentDate);
 
       var currentDateWithFormat = new Date()
         .toJSON()
         .slice(0, 10)
         .replace(/-/g, "/");
-      console.log(currentDateWithFormat);
+      console.log(currentDateWithFormat + " current date");
+
+      let curMonthStr =
+        currentDateWithFormat[5].toString() +
+        currentDateWithFormat[6].toString();
+      let curMonth = Number(curMonthStr);
+      console.log(curMonthStr + " curMonth");
+
+      let cal = this.$store.state.calendar[0].Months;
+      let activeMonth = cal.find(
+        m => m.order == curMonth[1] || m.order == curMonth
+      );
+      this.$store.dispatch("setActive", {
+        commit: "setItem",
+        commitAddress: "activeMonth",
+        data: activeMonth.name.default
+      });
+      console.log(activeMonth.name.default + " default");
     }
   },
   computed: {
