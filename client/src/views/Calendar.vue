@@ -3,13 +3,23 @@
     <div class="row top-bar">
       <!-- Display active month if there is no active month set active month to current month -->
       <div class="col-3">
-        <img class="arrows" src="https://i.imgur.com/s0bQfjC.png" alt="previous month" />
+        <img
+          class="arrows"
+          src="https://i.imgur.com/s0bQfjC.png"
+          @click="changeMonth(false)"
+          alt="previous month"
+        />
       </div>
       <div class="col-6">
         <h1>{{Month.name.default}}</h1>
       </div>
       <div class="col-3">
-        <img class="arrows" src="https://i.imgur.com/6e7JwqP.png" alt="next month" />
+        <img
+          class="arrows"
+          src="https://i.imgur.com/6e7JwqP.png"
+          @click="changeMonth(true)"
+          alt="next month"
+        />
       </div>
     </div>
     <div class="row">
@@ -185,6 +195,25 @@ export default {
         commit: "setItem",
         commitAddress: "activeMonth",
         data: activeMonth
+      });
+    },
+    changeMonth(string) {
+      let curMonth = this.$store.state.activeMonth.order;
+      let months = this.$store.state.calendar[0].Months;
+      let newMonth = 1;
+      if (curMonth == 12 && string == true) {
+        newMonth = months.find(m => m.order == curMonth - 11);
+      } else if (curMonth == 1 && string == false) {
+        newMonth = months.find(m => m.order == curMonth + 11);
+      } else if (string == true) {
+        newMonth = months.find(m => m.order == curMonth + 1);
+      } else if (string == false) {
+        newMonth = months.find(m => m.order == curMonth - 1);
+      }
+      this.$store.dispatch("setActive", {
+        commit: "setItem",
+        commitAddress: "activeMonth",
+        data: newMonth
       });
     }
   },
