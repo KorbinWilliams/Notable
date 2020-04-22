@@ -3,29 +3,17 @@
     <div class="row top-bar">
       <!-- Display active month if there is no active month set active month to current month -->
       <div class="col-3">
-        <img src alt="previous month" />
+        <img class="arrows" src="https://i.imgur.com/s0bQfjC.png" alt="previous month" />
       </div>
       <div class="col-6">
         <h1>{{Month.name.default}}</h1>
       </div>
       <div class="col-3">
-        <img src alt="next month" />
+        <img class="arrows" src="https://i.imgur.com/6e7JwqP.png" alt="next month" />
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <!-- NOTE PREMADE CALENDAR: save another object on backend for dates? DEALING WITH YEAR/VARIANCE: for year for loop over year (mess with date type?) split on character OR if year - 2020 == 0 || 4 || 8; change february.days to 29
-        DEALING WITH DAYS OF THE WEEK: (How do I automate this?)
-        Need Months object with amount of days[] 
-        Months = [JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]
-        dow = [SUN,MON,TUES,WED,THUR,FRI,SAT]
-        (where do i put dow?)
-        Need a basis so let year.JAN.days[0].dow = WED 
-        let months[month] - 1 = lastMonth
-        let lastMonth.days.length - 1 = lastDay
-        let curDow = lastday.dow + 1
-        -->
-        <!-- NOTE ARRANGING DAYS IN CALENDER: (Can I make a more customized v-for? if so, v-for over month.days let month.days[0].dow = curDow )  -->
         <div class="row d-flex justify-content-center">
           <div class="col-1 cal-dow">
             <p>Sun</p>
@@ -212,6 +200,12 @@ export default {
 </script>
 
 <style scoped>
+.arrows {
+  height: 4rem;
+}
+.arrows:hover {
+  cursor: pointer;
+}
 .cal-block {
   height: 10rem;
   color: whitesmoke;
