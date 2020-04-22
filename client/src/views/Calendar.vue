@@ -157,14 +157,30 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 events">
-        <h4>This will show events on a specific day</h4>
+    <div class="row event-box">
+      <div class="col-12 event-toolbar">
+        <div class="row">
+          <div class="col-3 event-tool">
+            <button @click="eventModifier(1)" type="button" class="btn-info">View Events</button>
+          </div>
+          <div class="col-3 event-tool">
+            <button @click="eventModifier(2)" type="button" class="btn-success">Add Event</button>
+          </div>
+          <div class="col-3 event-tool">
+            <button @click="eventModifier(3)" type="button" class="btn-warning">Edit Event</button>
+          </div>
+          <div class="col-3 event-tool">
+            <button @click="eventModifier(4)" type="button" class="btn-danger">Remove Event</button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
       <div class="col-12 events">
-        <h4>This wil only show when something is clicked to add an event</h4>
+        <h3 v-for="Event in Events" :key="Event._id"></h3>
+        <div v-if="canEditEvents == true || canAddEvents == true" class="form-group">
+          <label for>new event</label>
+          <input type="text" name id class="form-control" placeholder aria-describedby="helpId" />
+          <small id="helpId" class="text-muted">Help text</small>
+        </div>
       </div>
     </div>
   </div>
@@ -181,6 +197,15 @@ export default {
         commitAddress: "calendar"
       })
       .then(res => this.getDate());
+  },
+  data() {
+    return {
+      canAddEvents: false,
+      canEditEvents: false,
+      canRemoveEvents: false,
+      newEvent: {},
+      editedEvent: {}
+    };
   },
   methods: {
     getDate() {
@@ -225,6 +250,28 @@ export default {
         commitAddress: "activeMonth",
         data: newMonth
       });
+    },
+    addEvent() {},
+    editEvent() {},
+    removeEvent() {},
+    eventModifier(num) {
+      if (num == 1) {
+        this.canAddEvents = false;
+        this.canEditEvents = false;
+        this.canRemoveEvents = false;
+      } else if (num == 2) {
+        this.canAddEvents = true;
+        this.canEditEvents = false;
+        this.canRemoveEvents = false;
+      } else if (num == 3) {
+        this.canAddEvents = false;
+        this.canEditEvents = true;
+        this.canRemoveEvents = false;
+      } else if (num == 4) {
+        this.canAddEvents = false;
+        this.canEditEvents = false;
+        this.canRemoveEvents = true;
+      }
     }
   },
   computed: {
@@ -235,7 +282,7 @@ export default {
       return this.$store.state.calendar;
     },
     Events() {
-      return this.$store.state;
+      return this.$store.state.activeEvents;
     }
   }
 };
@@ -269,6 +316,20 @@ body {
 }
 .events {
   color: whitesmoke;
+  justify-content: center;
+}
+.event-box {
+  height: 18vh;
+  background-color: rgb(35, 131, 134);
+  border: 2px solid black;
+}
+.event-toolbar {
+  height: 2rem;
+  border-bottom: 2px solid black;
+}
+.event-tool {
+  display: flex;
+  justify-content: center;
 }
 /* TODO Make v-if for background color dependent on month */
 </style>
