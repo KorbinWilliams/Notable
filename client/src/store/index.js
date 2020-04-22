@@ -33,7 +33,8 @@ export default new Vuex.Store({
     stickyNotes: [],
     calendar: {},
     activeStickyNote: {},
-    activeMonth: {}
+    activeMonth: {},
+    activeEvents: []
   },
   mutations: {
     setUser(state, user) {
@@ -49,7 +50,8 @@ export default new Vuex.Store({
         state.stickyNotes = [],
         state.calendar = {},
         state.activeStickyNote = {},
-        state.activeMonth = {}
+        state.activeMonth = {},
+        state.activeEvents = []
     },
     setItem(state, payload) {
       state[payload.address] = payload.data;

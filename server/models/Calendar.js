@@ -4,7 +4,6 @@ let ObjectId = Schema.Types.ObjectId;
 
 const Calendar = new Schema(
   {
-    Events: { type: Array },
     Year: { type: Number, default: 2020 },
     Dow: { type: Array, default: ["SUN", "MON", "TUES", "WED", "THU", "FRI", "SAT"], unmodifiable: true },
     Months: {

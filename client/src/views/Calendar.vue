@@ -157,6 +157,16 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12 events">
+        <h4>This will show events on a specific day</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 events">
+        <h4>This wil only show when something is clicked to add an event</h4>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -223,27 +233,15 @@ export default {
     },
     Calendar() {
       return this.$store.state.calendar;
+    },
+    Events() {
+      return this.$store.state;
     }
   }
 };
 </script>
 
 <style scoped>
-.arrows {
-  height: 4rem;
-}
-.arrows:hover {
-  cursor: pointer;
-}
-.cal-block {
-  height: 10rem;
-  color: whitesmoke;
-}
-.cal-dow {
-  height: 2rem;
-  color: lightsteelblue;
-}
-/* TODO Make v-if for background color dependent on month */
 body {
   height: 100%;
   margin: 0;
@@ -254,4 +252,23 @@ body {
   background-color: rgb(35, 131, 134);
   border: 3px solid black;
 }
+.arrows {
+  height: 4rem;
+}
+.arrows:hover {
+  cursor: pointer;
+}
+.cal-block {
+  height: 10rem;
+  color: whitesmoke;
+  text-shadow: 2px 2px black;
+}
+.cal-dow {
+  height: 2rem;
+  color: lightsteelblue;
+}
+.events {
+  color: whitesmoke;
+}
+/* TODO Make v-if for background color dependent on month */
 </style>
