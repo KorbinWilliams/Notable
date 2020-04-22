@@ -1,4 +1,4 @@
-import _EventService from "../services/EventService";
+import _EventService from "../services/EventsService";
 import express from "express";
 import { Authorize } from "../middleware/authorize.js";
 

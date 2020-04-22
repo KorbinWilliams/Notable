@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
-import StickyNote from "../models/StickyNote";
+import Event from "../models/Event";
 import ApiError from "../utils/ApiError";
 
-const _repository = mongoose.model("StickyNote", StickyNote);
+const _repository = mongoose.model("Event", Event);
 
-class StickyNoteService {
+class EventService {
   async getAll(userId) {
     let data = await _repository.find({ authorId: userId })
     return data;
   }
 
-  // async getStickyNoteByUserId(userId, uid) {
+  // async getEventByUserId(userId, uid) {
   //   let data = await _repository.findOne({ userId, authorId: uid })
   //   return data
   // }
@@ -20,8 +20,8 @@ class StickyNoteService {
     return data;
   }
 
-  async getById(id) {
-    let data = await _repository.findOne({ _id: id });
+  async getById(id, uid) {
+    let data = await _repository.findOne({ _id: id, authorId: uid });
     if (!data) {
       throw new ApiError("Invalid ID", 400);
     }
@@ -35,17 +35,17 @@ class StickyNoteService {
       { new: true }
     );
     if (!data) {
-      throw new ApiError("Invalid ID or you do not own this stickyNote", 400);
+      throw new ApiError("Invalid ID or you do not own this event", 400);
     }
     return data;
   }
   async delete(id, uid) {
     let data = await _repository.findOneAndDelete({ _id: id, authorId: uid })
     if (!data) {
-      throw new ApiError("Invalid ID or you do not own this stickyNote", 400);
+      throw new ApiError("Invalid ID or you do not own this event", 400);
     }
   }
 }
 
-const _stickyNoteService = new StickyNoteService();
-export default _stickyNoteService;
+const _eventService = new EventService();
+export default _eventService;
