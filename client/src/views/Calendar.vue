@@ -209,6 +209,7 @@ export default {
   },
   methods: {
     getDate() {
+      // NOTE Takes current date finds month in calendar where order is equal to month then makes that current month
       let currentDate = new Date();
       console.log(currentDate);
 
@@ -225,7 +226,7 @@ export default {
 
       let cal = this.$store.state.calendar[0].Months;
       let activeMonth = cal.find(m => m.order == curMonth);
-      // TODO Fix this so that acctiveMonth contains the whole month object then adjust days based on minth
+
       this.$store.dispatch("setActive", {
         commit: "setItem",
         commitAddress: "activeMonth",
@@ -332,4 +333,5 @@ body {
   justify-content: center;
 }
 /* TODO Make v-if for background color dependent on month */
+/* 1 */
 </style>
