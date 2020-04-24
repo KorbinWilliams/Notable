@@ -334,4 +334,5 @@ body {
 }
 /* TODO Make v-if for background color dependent on month */
 /* 1 */
+/* 2 */
 </style>
