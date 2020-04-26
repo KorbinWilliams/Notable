@@ -178,8 +178,27 @@
         <h3 v-for="Event in Events" :key="Event._id"></h3>
         <div v-if="canEditEvents == true || canAddEvents == true" class="form-group">
           <label for>new event</label>
-          <input type="text" name id class="form-control" placeholder aria-describedby="helpId" />
-          <small id="helpId" class="text-muted">Help text</small>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="event title"
+            aria-describedby="helpId"
+            v-model="this.newEvent.name"
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="event description (optional)"
+            aria-describedby="helpId"
+            v-model="this.newEvent.description"
+          />
+          <input
+            type="date"
+            class="form-control"
+            placeholder="YYYY/MM/DD"
+            aria-describedby="helpId"
+            v-model="this.newEvent.dateOfEvent"
+          />
         </div>
       </div>
     </div>
@@ -203,9 +222,17 @@ export default {
       canAddEvents: false,
       canEditEvents: false,
       canRemoveEvents: false,
-      newEvent: {},
-      editedEvent: {},
-      eventToDelete: {}
+      newEvent: {
+        name: "",
+        description: "",
+        dateOfEvent: ""
+      },
+      editedEvent: {
+        name: this.$store.state.activeEvent.name,
+        description: this.$store.state.activeEvent.description,
+        _id: this.$store.state.activeEvent._id,
+        dateOfEvent: Date
+      }
     };
   },
   methods: {
@@ -274,7 +301,7 @@ export default {
         commit: "removeItem",
         commitAddress: "Events",
         address: "events",
-        data: this.eventToDelete
+        data: this.$store.state.activeEvent
       });
     },
     eventModifier(num) {
