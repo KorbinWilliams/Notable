@@ -179,6 +179,7 @@
           <h3
             v-for="Event in Events"
             :key="Event._id"
+            @click="deleteEvent(Event)"
           >{{Event.name}}, {{Event.description}}, {{Event.dateOfEvent.slice(0, 10)}}</h3>
         </div>
 
@@ -308,7 +309,6 @@ export default {
     getDate() {
       // NOTE Takes current date finds month in calendar where order is equal to month then makes that current month
       let currentDate = new Date();
-      console.log(currentDate);
 
       var currentDateWithFormat = new Date()
         .toJSON()
@@ -354,23 +354,20 @@ export default {
     filterEventsByMonth() {
       let events = this.$store.state.events;
       let curMonth = this.$store.state.activeMonth.order;
+      var currentDate = new Date()
+        .toJSON()
+        .slice(0, 10)
+        .replace(/-/g, "/");
       let activeEvents = events.filter(
-        e => e.dateOfEvent.slice(5, 7) == curMonth
+        e =>
+          e.dateOfEvent.slice(5, 7) == curMonth &&
+          e.dateOfEvent.slice(0, 4) == currentDate.slice(0, 4)
       );
       this.$store.dispatch("setActive", {
         commit: "setItem",
         commitAddress: "activeEvents",
         data: activeEvents
       });
-      console.log(activeEvents);
-      // for (let i = 0; i < events.length; i++) {
-      //   let event = events[i];
-      //   let month = event.dateOfEvent.slice(5, 7);
-      //   console.log(month + " month");
-      // }
-
-      // console.log(events);
-      // events.filter(e => e.dateOfEvent[6]);
     },
     convertEventDate() {
       let eventDate = this.newEvent.dateOfEvent;
@@ -378,6 +375,7 @@ export default {
       let monthStr = eventDate[5] + eventDate[6];
       let dayStr = eventDate[8] + eventDate[9];
       let year = Number(yearStr);
+      // NOTE Month is 1 less because months in the Date object are zero indexed for some reason
       let month = Number(monthStr) - 1;
       let day = Number(dayStr);
       this.newEvent.dateOfEvent = new Date(year, month, day);
@@ -400,12 +398,12 @@ export default {
         data: this.editedEvent
       });
     },
-    removeEvent() {
-      this.$store.state.dispatch("delete", {
+    deleteEvent(Event) {
+      this.$store.dispatch("delete", {
         commit: "removeItem",
         commitAddress: "Events",
         address: "events",
-        data: this.$store.state.activeEvent
+        data: Event
       });
     },
     eventModifier(num) {
