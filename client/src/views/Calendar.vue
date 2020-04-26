@@ -386,8 +386,10 @@ export default {
         commit: "addItem",
         commitAddress: "events",
         address: "events",
-        data: this.newEvent.id
+        data: this.newEvent
       });
+      setTimeout(this.filterEventsByMonth(), 2000);
+      // .then(res => this.filterEventsByMonth());
     },
     editEvent() {
       this.convertEventDate();
@@ -399,16 +401,18 @@ export default {
       });
     },
     deleteEvent(Event) {
-      console.log(Event);
-      this.$store.dispatch("delete", {
-        commit: "removeItem",
-        commitAddress: "events",
-        commitAddress2: "events",
-        address: "events",
-        data: Event
-      });
+      if (this.canRemoveEvents == true) {
+        this.$store.dispatch("delete", {
+          commit: "removeItem",
+          commitAddress: "events",
+          commitAddress2: "events",
+          address: "events",
+          data: Event
+        });
+      }
     },
     eventModifier(num) {
+      this.filterEventsByMonth();
       if (num == 1) {
         this.canAddEvents = false;
         this.canEditEvents = false;
