@@ -176,29 +176,87 @@
       </div>
       <div class="col-12 events">
         <h3 v-for="Event in Events" :key="Event._id"></h3>
-        <div v-if="canEditEvents == true || canAddEvents == true" class="form-group">
-          <label for>new event</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="event title"
-            aria-describedby="helpId"
-            v-model="this.newEvent.name"
-          />
-          <input
-            type="text"
-            class="form-control"
-            placeholder="event description (optional)"
-            aria-describedby="helpId"
-            v-model="this.newEvent.description"
-          />
-          <input
-            type="date"
-            class="form-control"
-            placeholder="YYYY/MM/DD"
-            aria-describedby="helpId"
-            v-model="this.newEvent.dateOfEvent"
-          />
+        <div v-if="canEditEvents == true || canAddEvents == true" class="form-group row">
+          <div v-if="canAddEvents == true" class="col-12">
+            <label for>new event</label>
+          </div>
+          <div v-if="canEditEvents == true" class="col-12">
+            <label for>edit event</label>
+          </div>
+          <div class="col-12">
+            <input
+              type="text"
+              class="form-control event-form"
+              placeholder="event title"
+              aria-describedby="helpId"
+              v-if="canAddEvents == true"
+              v-model="newEvent.name"
+            />
+          </div>
+          <div class="col-12">
+            <input
+              type="text"
+              class="form-control event-form"
+              placeholder="event description (optional)"
+              aria-describedby="helpId"
+              v-if="canAddEvents == true"
+              v-model="newEvent.description"
+            />
+          </div>
+          <div class="col-12">
+            <input
+              type="date"
+              class="form-control event-form"
+              aria-describedby="helpId"
+              v-if="canAddEvents == true"
+              v-model="newEvent.dateOfEvent"
+            />
+          </div>
+          <div class="col-12">
+            <button
+              @click="addEvent"
+              v-if="canAddEvents == true"
+              type="button"
+              class="btn event-form"
+            >Submit</button>
+          </div>
+          <div class="col-12">
+            <input
+              type="text"
+              class="form-control event-form"
+              placeholder="event title"
+              aria-describedby="helpId"
+              v-if="canEditEvents == true"
+              v-model="newEvent.name"
+            />
+          </div>
+          <div class="col-12">
+            <input
+              type="text"
+              class="form-control event-form"
+              placeholder="event description (optional)"
+              aria-describedby="helpId"
+              v-if="canEditEvents == true"
+              v-model="newEvent.description"
+            />
+          </div>
+          <div class="col-12">
+            <input
+              type="date"
+              class="form-control event-form"
+              aria-describedby="helpId"
+              v-if="canEditEvents == true"
+              v-model="newEvent.dateOfEvent"
+            />
+          </div>
+          <div class="col-12">
+            <button
+              @click="addEvent"
+              v-if="canEditEvents == true"
+              type="button"
+              class="btn event-form"
+            >Submit</button>
+          </div>
         </div>
       </div>
     </div>
@@ -216,6 +274,11 @@ export default {
         commitAddress: "calendar"
       })
       .then(res => this.getDate());
+    this.$store.dispatch("get", {
+      address: "events",
+      commit: "setItem",
+      commitAddress: "Events"
+    });
   },
   data() {
     return {
@@ -369,7 +432,7 @@ body {
   justify-content: center;
 }
 .event-box {
-  height: 18vh;
+  height: 22vh;
   background-color: rgb(35, 131, 134);
   border: 2px solid black;
 }
@@ -380,6 +443,9 @@ body {
 .event-tool {
   display: flex;
   justify-content: center;
+}
+.event-form {
+  margin-top: 0.5rem;
 }
 /* TODO Make v-if for background color dependent on month */
 </style>

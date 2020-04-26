@@ -31,7 +31,7 @@ export default new Vuex.Store({
       state: ""
     },
     stickyNotes: [],
-    Events: [],
+    events: [],
     calendar: {},
     activeStickyNote: {},
     activeMonth: {},
@@ -50,7 +50,7 @@ export default new Vuex.Store({
           state: ""
         },
         state.stickyNotes = [],
-        state.Events = [],
+        state.events = [],
         state.calendar = {},
         state.activeStickyNote = {},
         state.activeMonth = {},
