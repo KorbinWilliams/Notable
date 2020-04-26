@@ -204,7 +204,8 @@ export default {
       canEditEvents: false,
       canRemoveEvents: false,
       newEvent: {},
-      editedEvent: {}
+      editedEvent: {},
+      eventToDelete: {}
     };
   },
   methods: {
@@ -252,9 +253,30 @@ export default {
         data: newMonth
       });
     },
-    addEvent() {},
-    editEvent() {},
-    removeEvent() {},
+    addEvent() {
+      this.$store.dispatch("create", {
+        commit: "addItem",
+        commitAddress: "Events",
+        address: "events",
+        data: this.newEvent
+      });
+    },
+    editEvent() {
+      this.$store.dispatch("edit", {
+        commit: "setItem",
+        commitAddress: "Events",
+        address: "events",
+        data: this.editedEvent
+      });
+    },
+    removeEvent() {
+      this.$store.state.dispatch("delete", {
+        commit: "removeItem",
+        commitAddress: "Events",
+        address: "events",
+        data: this.eventToDelete
+      });
+    },
     eventModifier(num) {
       if (num == 1) {
         this.canAddEvents = false;
@@ -333,6 +355,4 @@ body {
   justify-content: center;
 }
 /* TODO Make v-if for background color dependent on month */
-/* 1 */
-/* 2 */
 </style>
