@@ -175,7 +175,13 @@
         </div>
       </div>
       <div class="col-12 events">
-        <h3 v-for="Event in Events" :key="Event._id"></h3>
+        <div v-if="canEditEvents == false && canAddEvents == false">
+          <h3
+            v-for="Event in Events"
+            :key="Event._id"
+          >{{Event.name}}, {{Event.description}}, {{Event.dateOfEvent.slice(0, 10)}}</h3>
+        </div>
+
         <div v-if="canEditEvents == true || canAddEvents == true" class="form-group row">
           <div v-if="canAddEvents == true" class="col-12">
             <label for>new event</label>
