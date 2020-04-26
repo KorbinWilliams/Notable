@@ -61,7 +61,7 @@ export default new Vuex.Store({
       state[payload.address] = payload.data;
     },
     removeItem(state, payload) {
-      state[payload.address].filter(item => item._id == payload.data._id || item.id == payload.data.id)
+      state[payload.address] = state[payload.address].filter(item => item._id == payload.data._id)
     },
     addItem(state, payload) {
       state[payload.address].push(payload.data)
@@ -173,7 +173,14 @@ export default new Vuex.Store({
         commit(payload.commit, {
           data: res.data,
           address: payload.commitAddress
-        });
+        })
+        // NOTE exception for deleting events
+        if (payload.commitAddress2) {
+          commit(payload.commit, {
+            data: res.data,
+            address: payload.commitAddress2
+          })
+        }
       });
     },
     setActive({ commit }, payload) {

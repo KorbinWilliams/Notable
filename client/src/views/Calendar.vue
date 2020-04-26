@@ -384,24 +384,26 @@ export default {
       this.convertEventDate();
       this.$store.dispatch("create", {
         commit: "addItem",
-        commitAddress: "Events",
+        commitAddress: "events",
         address: "events",
-        data: this.newEvent
+        data: this.newEvent.id
       });
     },
     editEvent() {
       this.convertEventDate();
       this.$store.dispatch("edit", {
         commit: "setItem",
-        commitAddress: "Events",
+        commitAddress: "events",
         address: "events",
         data: this.editedEvent
       });
     },
     deleteEvent(Event) {
+      console.log(Event);
       this.$store.dispatch("delete", {
         commit: "removeItem",
-        commitAddress: "Events",
+        commitAddress: "events",
+        commitAddress2: "events",
         address: "events",
         data: Event
       });

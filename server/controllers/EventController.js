@@ -64,7 +64,7 @@ export default class EventController {
 
   async delete(req, res, next) {
     try {
-      await _EventService.delete(req.body.id || req.body._id, req.session.uid);
+      await _EventService.delete(req.params.id || req.params._id, req.session.uid);
       return res.send("Successfully deleted");
     } catch (error) {
       next(error);
