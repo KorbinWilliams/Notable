@@ -277,7 +277,7 @@ export default {
     this.$store.dispatch("get", {
       address: "events",
       commit: "setItem",
-      commitAddress: "Events"
+      commitAddress: "events"
     });
   },
   data() {
@@ -288,7 +288,7 @@ export default {
       newEvent: {
         name: "",
         description: "",
-        dateOfEvent: ""
+        dateOfEvent: Date
       },
       editedEvent: {
         name: this.$store.state.activeEvent.name,
@@ -309,7 +309,7 @@ export default {
         .slice(0, 10)
         .replace(/-/g, "/");
 
-      // TODO Fix this up using slice
+      // TODO Make this an independent function
       let curMonthStr =
         currentDateWithFormat[5].toString() +
         currentDateWithFormat[6].toString();
@@ -337,13 +337,47 @@ export default {
       } else if (string == false) {
         newMonth = months.find(m => m.order == curMonth - 1);
       }
+      this.$store
+        .dispatch("setActive", {
+          commit: "setItem",
+          commitAddress: "activeMonth",
+          data: newMonth
+        })
+        .then(res => this.filterEventsByMonth());
+    },
+    filterEventsByMonth() {
+      let events = this.$store.state.events;
+      let curMonth = this.$store.state.activeMonth.order;
+      let activeEvents = events.filter(
+        e => e.dateOfEvent.slice(5, 7) == curMonth
+      );
       this.$store.dispatch("setActive", {
         commit: "setItem",
-        commitAddress: "activeMonth",
-        data: newMonth
+        commitAddress: "activeEvents",
+        data: activeEvents
       });
+      console.log(activeEvents);
+      // for (let i = 0; i < events.length; i++) {
+      //   let event = events[i];
+      //   let month = event.dateOfEvent.slice(5, 7);
+      //   console.log(month + " month");
+      // }
+
+      // console.log(events);
+      // events.filter(e => e.dateOfEvent[6]);
+    },
+    convertEventDate() {
+      let eventDate = this.newEvent.dateOfEvent;
+      let yearStr = eventDate[0] + eventDate[1] + eventDate[2] + eventDate[3];
+      let monthStr = eventDate[5] + eventDate[6];
+      let dayStr = eventDate[8] + eventDate[9];
+      let year = Number(yearStr);
+      let month = Number(monthStr) - 1;
+      let day = Number(dayStr);
+      this.newEvent.dateOfEvent = new Date(year, month, day);
     },
     addEvent() {
+      this.convertEventDate();
       this.$store.dispatch("create", {
         commit: "addItem",
         commitAddress: "Events",
@@ -352,6 +386,7 @@ export default {
       });
     },
     editEvent() {
+      this.convertEventDate();
       this.$store.dispatch("edit", {
         commit: "setItem",
         commitAddress: "Events",
