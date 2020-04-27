@@ -1,13 +1,17 @@
 <template>
   <div class="dashboard container-fluid">
     <div class="row">
+      <div class="col-1"></div>
       <div class="col">
-        <p>Welcome to your dashboard</p>
+        <div class="row dash-block">
+          <div class="col-12"></div>
+        </div>
+        <div class="row dash-block">
+          <div class="col-12"></div>
+        </div>
       </div>
+      <div class="col-1"></div>
     </div>
-    <!-- Quote of day, weather, customizeable background save as userSettings then fetch via user (don't trust the front end) -->
-    <!-- component bootstrap structure will be row as top level then col NO CONTAINERS -->
-    <!-- maybe change calendar blocks save events, then filter events and place them into premade calendar. -->
   </div>
 </template>
 
@@ -21,6 +25,21 @@ export default {
   components: {
     StickyNote,
     Weather
+  },
+  mounted() {
+    this.$store.dispatch("get", {
+      address: "stickyNotes",
+      commit: "setItem",
+      commitAddress: "stickyNotes"
+    });
   }
 };
 </script>
+
+<style scoped>
+.dash-block {
+  height: 40vh;
+  background-color: rgb(35, 131, 134);
+  margin-top: 5vh;
+}
+</style>

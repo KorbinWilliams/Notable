@@ -91,6 +91,7 @@ export default {
   width: 20%;
 }
 .bg-cork-board {
+  height: 80vh;
   background-image: url(https://previews.123rf.com/images/mexrix/mexrix1206/mexrix120600069/14260342-brown-cork-board-for-background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
