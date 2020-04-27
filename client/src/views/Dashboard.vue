@@ -4,7 +4,9 @@
       <div class="col-1"></div>
       <div class="col">
         <div class="row dash-block">
-          <div class="col-12"></div>
+          <div class="col-12">
+            <Weather />
+          </div>
         </div>
         <div class="row dash-block">
           <div class="col">
@@ -67,6 +69,6 @@ export default {
 .note-box {
   display: flex;
 }
-.notes {
-}
+/* .notes {
+} */
 </style>

@@ -17,19 +17,27 @@ let api = Axios.create({
 
 // NOTE Experiment failed lol
 // TODO Fix this
-// weatherApi Key = c108e787517dc67e1b16cd77c033c428
+// API Key: c108e787517dc67e1b16cd77c033c428
 // let weatherApi = Axios.create({
-//   baseURL: `api.openweathermap.org/data/2.5/forecast?q={${this.state.weatherInfo.city}},{${this.state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
+//   baseURL: `api.openweathermap.org/data/2.5/forecast?q={${state.weatherInfo.city}},{${state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
 // })
+//NOTE external weather api OpenWeather
+// docs: https://openweathermap.org/forecast5
+
+let weatherApi = Axios.create({
+  baseURL: "api.openweathermap.org/data/2.5/forecast?q=",
+  timeout: 3000
+})
 
 export default new Vuex.Store({
   state: {
     user: {},
     isLoggedIn: false,
-    weatherInfo: {
+    weatherLocation: {
       city: "",
       state: ""
     },
+    weatherInfo: {},
     stickyNotes: [],
     events: [],
     calendar: {},
@@ -45,10 +53,11 @@ export default new Vuex.Store({
     resetState(state) {
       state.user = {},
         state.isLoggedIn = false,
-        state.weatherInfo = {
+        state.weatherLocation = {
           city: "",
           state: ""
         },
+        state.weatherInfo = {},
         state.stickyNotes = [],
         state.events = [],
         state.calendar = {},
@@ -103,16 +112,33 @@ export default new Vuex.Store({
       router.push({ name: "Login" });
     },
     // SECTION functional actions
+    // let weatherApi = Axios.create({
+    //   baseURL: `api.openweathermap.org/data/2.5/forecast?q={${state.weatherInfo.city}},{${state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
+    // })
+
     get({ commit }, payload) {
-      api
-        .get("" + payload.address)
-        .then(res => {
-          commit(payload.commit, {
-            data: res.data,
-            address: payload.commitAddress
-          });
-        })
-        .catch(e => console.error(e));
+      if (payload.weather) {
+        weatherApi
+          .get("" + payload.weather.city + "," + payload.weather.state + "&appid=c108e787517dc67e1b16cd77c033c428")
+          .then(res => {
+            commit(payload.commit, {
+              data: res.data,
+              address: payload.commitAddress
+            });
+          })
+          .catch(e => console.error(e));
+      }
+      else {
+        api
+          .get("" + payload.address)
+          .then(res => {
+            commit(payload.commit, {
+              data: res.data,
+              address: payload.commitAddress
+            });
+          })
+          .catch(e => console.error(e));
+      }
     },
     getOne({ commit }, payload) {
       api

@@ -1,8 +1,38 @@
 <template>
   <div class="weather row">
-    <!-- external weather api OpenWeather
-    API Key: c108e787517dc67e1b16cd77c033c428
-    docs: https://openweathermap.org/forecast5-->
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <h3>Weather</h3>
+        </div>
+      </div>
+      <div class="row locationInput">
+        <div class="col-6">
+          <div class="form-group">
+            <label>input your city</label>
+            <input
+              v-model="weather.city"
+              type="text"
+              name="cityInput"
+              class="form-control"
+              placeholder="city"
+            />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label>input your state</label>
+            <input
+              v-model="weather.state"
+              type="text"
+              name="stateInput"
+              class="form-control"
+              placeholder="state"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,11 +41,27 @@ export default {
   name: "Weather",
   data() {
     return {
-      weatherLocation: {
+      weather: {
         city: "",
         state: ""
       }
     };
+  },
+  mounted() {
+    //NOTE make this happen only when city and state are saved
+    this.getWeather();
+  },
+  methods: {
+    getWeather() {
+      this.$store.dispatch("get", {
+        weather: {
+          city: this.weather.city,
+          state: this.weather.state
+        },
+        commit: "setItem",
+        commitAddress: "weatherInfo"
+      });
+    }
   }
 };
 </script>
