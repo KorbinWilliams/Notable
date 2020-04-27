@@ -7,7 +7,18 @@
           <div class="col-12"></div>
         </div>
         <div class="row dash-block">
-          <div class="col-12"></div>
+          <div class="col">
+            <h3>Your top notes</h3>
+            <div class="row note-box">
+              <StickyNote
+                :dash="true"
+                v-for="note in notes"
+                :Note="note"
+                :key="note._id"
+                class="col-3 notes offset-1"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-1"></div>
@@ -32,6 +43,16 @@ export default {
       commit: "setItem",
       commitAddress: "stickyNotes"
     });
+  },
+  computed: {
+    notes() {
+      return this.$store.state.stickyNotes.slice(0, 3);
+    }
+  },
+  methods: {
+    getNoteIndex(note) {
+      let noteIndex = notes.indexOf(note);
+    }
   }
 };
 </script>
@@ -41,5 +62,11 @@ export default {
   height: 40vh;
   background-color: rgb(35, 131, 134);
   margin-top: 5vh;
+  border: 2px solid black;
+}
+.note-box {
+  display: flex;
+}
+.notes {
 }
 </style>

@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col d-flex justify-content-between">
           <img class="push-pin" src="https://i.imgur.com/DuIKmrh.jpg" alt="push-pin" />
-          <button @click="toggleOptions(), setActiveStickyNote()">
+          <button v-if="dash == false" @click="toggleOptions(), setActiveStickyNote()">
             <img
               class="dots-btn"
               src="https://pngimage.net/wp-content/uploads/2018/06/3-dots-png-5.png"
@@ -32,7 +32,7 @@
 <script>
 export default {
   name: "StickyNote",
-  props: ["Note"],
+  props: ["Note", "dash"],
   data() {
     return {
       optionBool: false
@@ -79,7 +79,7 @@ export default {
   margin: 5vh 0 5vh 0;
   background-color: #fef200;
   border: 2px solid black;
-  margin-left: 2vw;
+  /* margin-left: 2vw; */
 }
 .trash-img {
   height: 2rem;

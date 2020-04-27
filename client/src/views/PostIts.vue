@@ -6,7 +6,13 @@
       </div>
     </div>
     <div class="row">
-      <StickyNote v-for="note in notes" :Note="note" :key="note._id" class="col-3 offset-1" />
+      <StickyNote
+        :dash="false"
+        v-for="note in notes"
+        :Note="note"
+        :key="note._id"
+        class="col-3 offset-1"
+      />
     </div>
     <div class="row">
       <div class="col-3 add-note offset-1">
@@ -43,7 +49,8 @@ export default {
         name: "",
         description: "",
         authorId: this.$store.state.user._id
-      }
+      },
+      dash: false
     };
   },
 
