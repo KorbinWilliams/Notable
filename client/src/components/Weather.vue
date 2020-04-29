@@ -6,9 +6,9 @@
           <h3>Weather</h3>
         </div>
       </div>
-      <div class="row locationInput">
+      <div class="row locationInput form-group">
         <div class="col-6">
-          <div class="form-group">
+          <div class>
             <label>input your city</label>
             <input
               v-model="weather.city"
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="form-group">
+          <div class>
             <label>input your state</label>
             <input
               v-model="weather.state"
@@ -30,6 +30,9 @@
               placeholder="state"
             />
           </div>
+        </div>
+        <div class="col-4 offset-4 pt-3 d-flex weather-btn">
+          <button @click="saveLocationInfo">Submit</button>
         </div>
       </div>
     </div>
@@ -61,10 +64,19 @@ export default {
         commit: "setItem",
         commitAddress: "weatherInfo"
       });
+    },
+    saveLocationInfo() {
+      if (this.weather.city.length > 4 || this.weather.state.length > 4) {
+        this.$store.dispatch("", {});
+      }
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.weather-btn {
+  flex: inherit;
+  justify-content: center;
+}
 </style>
