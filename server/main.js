@@ -36,14 +36,12 @@ server.use('/account', new UserController().router)
 import CalendarController from './controllers/CalendarController'
 import StickyNotesController from './controllers/StickyNotesController'
 import EventController from './controllers/EventController'
+import LocationInfoController from './controllers/LocationInfoController'
 
 server.use('/api/calendar', new CalendarController().router)
 server.use('/api/stickyNotes', new StickyNotesController().router)
 server.use('/api/events', new EventController().router)
-
-
-
-
+server.use('/api/locationInfo', new LocationInfoController().router)
 
 
 //NOTE Default error handler, catches all routes with an error attached

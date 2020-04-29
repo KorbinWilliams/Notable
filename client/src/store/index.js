@@ -33,10 +33,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     isLoggedIn: false,
-    weatherLocation: {
-      city: "",
-      state: ""
-    },
+    locationInfo: {},
     weatherInfo: {},
     stickyNotes: [],
     events: [],
@@ -53,9 +50,7 @@ export default new Vuex.Store({
     resetState(state) {
       state.user = {},
         state.isLoggedIn = false,
-        state.weatherLocation = {
-          city: "",
-          state: ""
+        state.locationInfo = {
         },
         state.weatherInfo = {},
         state.stickyNotes = [],

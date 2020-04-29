@@ -15,13 +15,13 @@ class LocationInfoService {
     return data;
   }
 
-  async getById(id, uid) {
-    let data = await _repository.findOne({ _id: id, authorId: uid });
-    if (!data) {
-      throw new ApiError("Invalid ID", 400);
-    }
-    return data;
-  }
+  // async getById(id, uid) {
+  //   let data = await _repository.findOne({ _id: id, authorId: uid });
+  //   if (!data) {
+  //     throw new ApiError("Invalid ID", 400);
+  //   }
+  //   return data;
+  // }
 
   async edit(id, update, userId) {
     let data = await _repository.findOneAndUpdate(
@@ -34,6 +34,7 @@ class LocationInfoService {
     }
     return data;
   }
+
   async delete(id, uid) {
     let data = await _repository.findOneAndDelete({ _id: id, authorId: uid })
     if (!data) {

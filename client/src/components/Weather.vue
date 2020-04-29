@@ -51,23 +51,67 @@ export default {
     };
   },
   mounted() {
-    //NOTE make this happen only when city and state are saved
     this.getWeather();
   },
   methods: {
     getWeather() {
+      getWeatherInfo().then(res => weatherInfoCheck());
+    },
+
+    // NOTE gets weather info
+    getWeatherInfo() {
       this.$store.dispatch("get", {
-        weather: {
-          city: this.weather.city,
-          state: this.weather.state
-        },
-        commit: "setItem",
-        commitAddress: "weatherInfo"
+        address: "locationInfo",
+        commitAddress: "locationInfo",
+        commit: "setItem"
       });
     },
+
+    // NOTE checks to see if there is location info saved. if there is, then it gets weather info based on that information.
+    weatherInfoCheck() {
+      if (this.$store.state.locationInfo.city.length > 3) {
+        this.$store.dispatch("get", {
+          weather: {
+            city: this.weather.city,
+            state: this.weather.state
+          },
+          commit: "setItem",
+          commitAddress: "weatherInfo"
+        });
+      }
+    },
+
+    // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
     saveLocationInfo() {
-      if (this.weather.city.length > 4 || this.weather.state.length > 4) {
-        this.$store.dispatch("", {});
+      if (this.weather.city.length <= 4 || this.weather.state.length <= 4) {
+        this.$store.dispatch("create", {
+          data: {
+            city: this.weather.city,
+            state: this.weather.state
+          },
+          commit: "setItem",
+          address: "locationInfo",
+          commitAddress: "locationInfo"
+        });
+      } else {
+        this.$store
+          .dispatch("delete", {
+            data: this.$store.state.locationInfo,
+            address: "locationInfo",
+            commit: "resetItem",
+            commitAddress: "locationInfo"
+          })
+          .then(res =>
+            this.$store.dispatch("create", {
+              data: {
+                city: this.weather.city,
+                state: this.weather.state
+              },
+              commit: "setItem",
+              address: "locationInfo",
+              commitAddress: "locationInfo"
+            })
+          );
       }
     }
   }
