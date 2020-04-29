@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getWeather() {
-      getWeatherInfo().then(res => weatherInfoCheck());
+      this.getWeatherInfo().then(res => this.weatherInfoCheck());
     },
 
     // NOTE gets weather info
@@ -72,8 +72,8 @@ export default {
       if (this.$store.state.locationInfo.city.length > 3) {
         this.$store.dispatch("get", {
           weather: {
-            city: this.weather.city,
-            state: this.weather.state
+            city: this.$store.state.locationInfo.city,
+            state: this.$store.state.locationInfo.state
           },
           commit: "setItem",
           commitAddress: "weatherInfo"
