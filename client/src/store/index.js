@@ -6,6 +6,10 @@ import AuthService from '../AuthService'
 
 Vue.use(Vuex)
 
+let weatherApi = Axios.create({
+  baseURL: "api.openweathermap.org/data/2.5/forecast?q=",
+  timeout: 3000
+})
 //Allows axios to work locally or live
 let base = window.location.host.includes('localhost:8080') ? '//localhost:3000/' : '/'
 
@@ -15,19 +19,16 @@ let api = Axios.create({
   withCredentials: true
 })
 
-// NOTE Experiment failed lol
-// TODO Fix this
+
+// NOTE This (api.openweathermap.org/data/2.5/forecast?q=Boise,Idaho&appid=c108e787517dc67e1b16cd77c033c428) works
+
+//NOTE external weather api OpenWeather
+// docs: https://openweathermap.org/forecast5
 // API Key: c108e787517dc67e1b16cd77c033c428
 // let weatherApi = Axios.create({
 //   baseURL: `api.openweathermap.org/data/2.5/forecast?q={${state.weatherInfo.city}},{${state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
 // })
-//NOTE external weather api OpenWeather
-// docs: https://openweathermap.org/forecast5
 
-let weatherApi = Axios.create({
-  baseURL: "api.openweathermap.org/data/2.5/forecast?q=",
-  timeout: 3000
-})
 
 export default new Vuex.Store({
   state: {
@@ -50,8 +51,7 @@ export default new Vuex.Store({
     resetState(state) {
       state.user = {},
         state.isLoggedIn = false,
-        state.locationInfo = {
-        },
+        state.locationInfo = {},
         state.weatherInfo = {},
         state.stickyNotes = [],
         state.events = [],
@@ -107,12 +107,10 @@ export default new Vuex.Store({
       router.push({ name: "Login" });
     },
     // SECTION functional actions
-    // let weatherApi = Axios.create({
-    //   baseURL: `api.openweathermap.org/data/2.5/forecast?q={${state.weatherInfo.city}},{${state.weather.state}}&appid={c108e787517dc67e1b16cd77c033c428}`
-    // })
 
     get({ commit }, payload) {
       if (payload.weather) {
+        debugger
         weatherApi
           .get("" + payload.weather.city + "," + payload.weather.state + "&appid=c108e787517dc67e1b16cd77c033c428")
           .then(res => {

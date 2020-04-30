@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="col-4 offset-4 pt-3 d-flex weather-btn">
-          <button @click="saveLocationInfo">Submit</button>
+          <button @click="saveLocationInfo, weatherInfoCheck">Submit</button>
         </div>
       </div>
     </div>
@@ -55,7 +55,8 @@ export default {
   },
   methods: {
     getWeather() {
-      this.getWeatherInfo().then(res => this.weatherInfoCheck());
+      this.getWeatherInfo();
+      setTimeout(this.weatherInfoCheck(), 2000);
     },
 
     // NOTE gets weather info
@@ -69,11 +70,12 @@ export default {
 
     // NOTE checks to see if there is location info saved. if there is, then it gets weather info based on that information.
     weatherInfoCheck() {
-      if (this.$store.state.locationInfo.city.length > 3) {
+      console.log(this.$store.state.locationInfo[0].city);
+      if (this.$store.state.locationInfo[0].city.length > 3) {
         this.$store.dispatch("get", {
           weather: {
-            city: this.$store.state.locationInfo.city,
-            state: this.$store.state.locationInfo.state
+            city: this.$store.state.locationInfo[0].city,
+            state: this.$store.state.locationInfo[0].state
           },
           commit: "setItem",
           commitAddress: "weatherInfo"
@@ -83,6 +85,7 @@ export default {
 
     // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
     saveLocationInfo() {
+      debugger;
       if (this.weather.city.length <= 4 || this.weather.state.length <= 4) {
         this.$store.dispatch("create", {
           data: {
