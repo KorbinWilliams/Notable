@@ -7,11 +7,11 @@ import AuthService from '../AuthService'
 Vue.use(Vuex)
 
 let weatherApi = Axios.create({
-  baseURL: "api.openweathermap.org/data/2.5/forecast?q=",
-  timeout: 3000
+  baseURL: "//api.openweathermap.org/data/2.5",
+  timeout: 3000,
 })
-//Allows axios to work locally or live
-let base = window.location.host.includes('localhost:8080') ? '//localhost:3000/' : '/'
+//NOTE Allows axios to work locally or live
+let base = window.location.host.includes('localhost:8080') ? '//localhost:3000/' : ''
 
 let api = Axios.create({
   baseURL: base + "api/",
@@ -75,6 +75,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    //#region auth
     //SECTION  -- AUTH --
     async register({ commit, dispatch }, creds) {
       try {
@@ -107,12 +108,12 @@ export default new Vuex.Store({
       router.push({ name: "Login" });
     },
     // SECTION functional actions
+    //#endregion
 
     get({ commit }, payload) {
       if (payload.weather) {
-        debugger
         weatherApi
-          .get("" + payload.weather.city + "," + payload.weather.state + "&appid=c108e787517dc67e1b16cd77c033c428")
+          .get("forecast?q=" + payload.weather.city + "," + payload.weather.state + "&appid=c108e787517dc67e1b16cd77c033c428")
           .then(res => {
             commit(payload.commit, {
               data: res.data,
@@ -160,7 +161,7 @@ export default new Vuex.Store({
             address: payload.commitAddress
           });
         });
-      // for using ref's. address 1 is where the id/ref comes from, address 2 is what youre looking for, commitAddress is where it's going in the state.
+      //NOTE for using ref's. address 1 is where the id/ref comes from, address 2 is what youre looking for, commitAddress is where it's going in the state.
     },
     create({ commit }, payload) {
       api

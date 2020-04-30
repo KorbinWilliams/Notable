@@ -2,11 +2,20 @@
   <div class="weather row">
     <div class="col-12">
       <div class="row">
-        <div class="col-12">
+        <div class="col-4 offset-4">
           <h3>Weather</h3>
         </div>
+        <div v-if="this.inputLocation == false" class="col-2">
+          <button class="btn" @click="changeLocation">location</button>
+        </div>
+        <div v-if="this.inputLocation == true" class="col-2">
+          <button class="btn" @click="changeLocation">hide</button>
+        </div>
+        <div class="col-2">
+          <button class="btn" @click="changeDegreeMeasurement">temp</button>
+        </div>
       </div>
-      <div class="row locationInput form-group">
+      <div v-if="this.inputLocation == true" class="row locationInput form-group">
         <div class="col-6">
           <div class>
             <label>input your city</label>
@@ -47,7 +56,9 @@ export default {
       weather: {
         city: "",
         state: ""
-      }
+      },
+      inputLocation: false,
+      degrees: "Kelvin"
     };
   },
   mounted() {
@@ -80,6 +91,29 @@ export default {
           commit: "setItem",
           commitAddress: "weatherInfo"
         });
+      }
+    },
+
+    changeLocation() {
+      if (this.inputLocation == true) {
+        this.inputLocation = false;
+      } else {
+        this.inputLocation = true;
+      }
+    },
+
+    changeDegreeMeasurement() {
+      if (this.degrees == "Kelvin") {
+        this.degrees = "Fahrenheit";
+      } else if (this.degrees == "Fahrenheit") {
+        this.degrees = "Celsius";
+      } else if (this.degrees == "Celsius") {
+        this.degrees = "Kelvin";
+      }
+    },
+
+    convertTemperature() {
+      if (condition) {
       }
     },
 
