@@ -9,7 +9,12 @@
       <p>--</p>
       <router-link v-show="this.$store.state.isLoggedIn == true" to="/Dashboard">Dashboard</router-link>
       <p>--</p>
-      <button type="button" v-show="this.$store.state.isLoggedIn == true" @click="logout">Logout</button>
+      <button
+        class="btn-danger"
+        type="button"
+        v-show="this.$store.state.isLoggedIn == true"
+        @click="logout"
+      >Logout</button>
     </div>
     <router-view />
   </div>

@@ -1,10 +1,11 @@
 <template>
   <div class="weather row">
     <div class="col-12">
-      <div class="row">
+      <div class="row weather-bar">
         <div class="col-4 offset-4">
-          <h3>Weather</h3>
+          <h2>Weather</h2>
         </div>
+        <!-- Options -->
         <div v-if="this.inputLocation == false" class="col-2">
           <button class="btn" @click="changeLocation">location</button>
         </div>
@@ -15,6 +16,7 @@
           <button class="btn" @click="changeDegreeMeasurement">temp</button>
         </div>
       </div>
+      <!-- Location Form -->
       <div v-if="this.inputLocation == true" class="row locationInput form-group">
         <div class="col-6">
           <div class>
@@ -41,7 +43,47 @@
           </div>
         </div>
         <div class="col-4 offset-4 pt-3 d-flex weather-btn">
-          <button @click="saveLocationInfo, weatherInfoCheck">Submit</button>
+          <button class="btn" @click="saveLocationInfo, weatherInfoCheck">Submit</button>
+        </div>
+      </div>
+      <!-- Weather info -->
+      <div class="row">
+        <div class="col-12">
+          <h3>{{LocationInfo.city}}, {{LocationInfo.state}}</h3>
+        </div>
+      </div>
+      <div v-if="this.inputLocation == false" class="row weather-information">
+        <div class="col-6">
+          <img
+            class="weather-img"
+            src="https://lh3.googleusercontent.com/proxy/_LAg6FiDgH2lwBAG6QscJK5zGvy4VEAflp8QORuUtoJI0RVATU8B2syrv1J7nfWZIMA4LysTR3_lS-D9s2lZSW-vsKo4LLw"
+            alt="sunny,rainy,cloudy"
+          />
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12 weather-info">
+              <p>Temp: {{WeatherInfo[day].main.temp}} {{degrees}}</p>
+            </div>
+            <div class="col-12 weather-info">
+              <p>{{WeatherInfo[day].weather[0].description}}</p>
+            </div>
+            <div class="col-12 weather-info">
+              <p>Humidity: {{WeatherInfo[day].main.humidity}}%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Day selector -->
+      <div class="row day-selector">
+        <div class="col-4">
+          <button>---</button>
+        </div>
+        <div class="col-4">
+          <button>---</button>
+        </div>
+        <div class="col-4">
+          <button>---</button>
         </div>
       </div>
     </div>
@@ -58,14 +100,24 @@ export default {
         state: ""
       },
       inputLocation: false,
-      degrees: "Kelvin"
+      degrees: "Kelvin",
+      day: 0
     };
+  },
+  computed: {
+    WeatherInfo() {
+      return this.$store.state.weatherInfo.list.slice(0, 4);
+    },
+    LocationInfo() {
+      return this.$store.state.locationInfo[0];
+    }
   },
   mounted() {
     this.getWeather();
   },
   methods: {
     getWeather() {
+      console.log(this.$store.state.weatherInfo.list.slice(0, 4));
       this.getWeatherInfo();
       setTimeout(this.weatherInfoCheck(), 2000);
     },
@@ -94,6 +146,7 @@ export default {
       }
     },
 
+    // NOTE hides/shows location input form
     changeLocation() {
       if (this.inputLocation == true) {
         this.inputLocation = false;
@@ -102,6 +155,7 @@ export default {
       }
     },
 
+    // NOTE changes base measurement of temperature
     changeDegreeMeasurement() {
       if (this.degrees == "Kelvin") {
         this.degrees = "Fahrenheit";
@@ -112,6 +166,7 @@ export default {
       }
     },
 
+    // NOTE Converts base temp
     convertTemperature() {
       if (condition) {
       }
@@ -159,5 +214,21 @@ export default {
 .weather-btn {
   flex: inherit;
   justify-content: center;
+}
+.weather-img {
+  height: 10rem;
+  width: 10rem;
+}
+.weather-bar {
+  border-bottom: 2px solid black;
+}
+.weather-information {
+  padding-top: 1vh;
+}
+.weather-info {
+  height: 5vh;
+}
+.day-selector {
+  padding-top: 3vh;
 }
 </style>

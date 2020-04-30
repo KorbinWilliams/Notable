@@ -21,7 +21,7 @@
           <input v-model="postIt.name" type="text" class="form-control" placeholder="Title" />
           <label>Text</label>
           <input v-model="postIt.description" type="text" class="form-control" placeholder="Text" />
-          <button @click="createStickyNote">addNote</button>
+          <button class="btn-success" @click="createStickyNote">addNote</button>
         </div>
       </div>
     </div>

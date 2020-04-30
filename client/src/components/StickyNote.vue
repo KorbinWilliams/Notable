@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col d-flex justify-content-between">
           <img class="push-pin" src="https://i.imgur.com/DuIKmrh.jpg" alt="push-pin" />
-          <button v-if="dash == false" @click="toggleOptions(), setActiveStickyNote()">
+          <button class="btn" v-if="dash == false" @click="toggleOptions(), setActiveStickyNote()">
             <img
               class="dots-btn"
               src="https://pngimage.net/wp-content/uploads/2018/06/3-dots-png-5.png"
