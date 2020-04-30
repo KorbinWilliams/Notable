@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="col-4 offset-4 pt-3 d-flex weather-btn">
-          <button class="btn" @click="saveLocationInfo, weatherInfoCheck">Submit</button>
+          <button class="btn" @click="saveLocationInfo">Submit</button>
         </div>
       </div>
       <!-- Weather info -->
@@ -75,7 +75,7 @@
         </div>
       </div>
       <!-- Day selector -->
-      <div class="row day-selector">
+      <div v-if="this.inputLocation == false" class="row day-selector">
         <div class="col-4">
           <button>---</button>
         </div>
@@ -106,7 +106,9 @@ export default {
   },
   computed: {
     WeatherInfo() {
-      return this.$store.state.weatherInfo.list.slice(0, 4);
+      if (this.$store.state.weatherInfo.list) {
+        return this.$store.state.weatherInfo.list.slice(0, 4);
+      }
     },
     LocationInfo() {
       return this.$store.state.locationInfo[0];
@@ -117,7 +119,6 @@ export default {
   },
   methods: {
     getWeather() {
-      console.log(this.$store.state.weatherInfo.list.slice(0, 4));
       this.getWeatherInfo();
       setTimeout(this.weatherInfoCheck(), 2000);
     },
@@ -148,6 +149,7 @@ export default {
 
     // NOTE hides/shows location input form
     changeLocation() {
+      console.log(this.inputLocation);
       if (this.inputLocation == true) {
         this.inputLocation = false;
       } else {
@@ -174,7 +176,6 @@ export default {
 
     // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
     saveLocationInfo() {
-      debugger;
       if (this.weather.city.length <= 4 || this.weather.state.length <= 4) {
         this.$store.dispatch("create", {
           data: {
@@ -185,25 +186,32 @@ export default {
           address: "locationInfo",
           commitAddress: "locationInfo"
         });
+        setTimeout(this.weatherInfoCheck(), 2000);
       } else {
+        console.log();
         this.$store
           .dispatch("delete", {
-            data: this.$store.state.locationInfo,
+            data: this.$store.state.locationInfo[0],
             address: "locationInfo",
-            commit: "resetItem",
+            commit: "removeItem",
             commitAddress: "locationInfo"
           })
           .then(res =>
-            this.$store.dispatch("create", {
-              data: {
-                city: this.weather.city,
-                state: this.weather.state
+            this.$store.dispatch(
+              "create",
+              {
+                data: {
+                  city: this.weather.city,
+                  state: this.weather.state
+                },
+                commit: "setItem",
+                address: "locationInfo",
+                commitAddress: "locationInfo"
               },
-              commit: "setItem",
-              address: "locationInfo",
-              commitAddress: "locationInfo"
-            })
+              console.log(this.weather.city)
+            )
           );
+        setTimeout(this.weatherInfoCheck(), 2000);
       }
     }
   }
