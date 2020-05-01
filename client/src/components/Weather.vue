@@ -48,7 +48,8 @@
       </div>
       <!-- Weather info -->
       <div class="row">
-        <div class="col-12">
+        <div v-if="inputLocation == false" class="col-12">
+          <!-- NOTE Source of location change bug. No idea how to fix without deleting this -->
           <h3>{{LocationInfo.city}}, {{LocationInfo.state}}</h3>
         </div>
       </div>
@@ -161,17 +162,32 @@ export default {
     changeDegreeMeasurement() {
       if (this.degrees == "Kelvin") {
         this.degrees = "Fahrenheit";
+        this.convertTemperature("F");
       } else if (this.degrees == "Fahrenheit") {
         this.degrees = "Celsius";
+        this.convertTemperature("C");
       } else if (this.degrees == "Celsius") {
         this.degrees = "Kelvin";
+        this.convertTemperature("Funsies");
       }
     },
 
-    // NOTE Converts base temp
-    convertTemperature() {
-      if (condition) {
+    // NOTE Converts base temp then overwrites it in the store
+    convertTemperature(temp) {
+      let curTemp = this.$store.state.weatherInfo.list[this.day].main.temp;
+      if (temp === "F") {
+        let newTemp = (curTemp * 9) / 5 - 459.67;
+      } else if (temp === "C") {
+        let x = curTemp - 32;
+        let newTemp = x * 0.555555555;
+      } else {
+        let newTemp = curTemp + 273.15;
       }
+      this.$store.dispatch("setActive", {
+        data: newTemp,
+        commit: "setItem",
+        commitAddress: "weatherInfo.list[" + this.day + "].main.temp"
+      });
     },
 
     // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
