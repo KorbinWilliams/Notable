@@ -175,60 +175,70 @@ export default {
     // NOTE Converts base temp then overwrites it in the store
     convertTemperature(temp) {
       let curTemp = this.$store.state.weatherInfo.list[this.day].main.temp;
+      console.log(curTemp + "cur");
       if (temp === "F") {
         let newTemp = (curTemp * 9) / 5 - 459.67;
+        this.saveTemp(newTemp);
       } else if (temp === "C") {
         let x = curTemp - 32;
         let newTemp = x * 0.555555555;
+        this.saveTemp(newTemp);
       } else {
         let newTemp = curTemp + 273.15;
+        this.saveTemp(newTemp);
       }
+    },
+
+    // FIXME pretty sure commitAddress isnt working
+    saveTemp(newTemp) {
+      console.log(newTemp + "new");
+      console.log(this.$store.state.weatherInfo.list[this.day].main.temp);
       this.$store.dispatch("setActive", {
         data: newTemp,
         commit: "setItem",
-        commitAddress: "weatherInfo.list[" + this.day + "].main.temp"
+        commitAddress: "weatherInfo.list[ " + this.day + "].main.temp"
       });
-    },
+    }
+  },
 
-    // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
-    saveLocationInfo() {
-      if (this.weather.city.length <= 4 || this.weather.state.length <= 4) {
-        this.$store.dispatch("create", {
-          data: {
-            city: this.weather.city,
-            state: this.weather.state
-          },
-          commit: "setItem",
+  // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
+  saveLocationInfo() {
+    if (this.weather.city.length <= 4 || this.weather.state.length <= 4) {
+      this.$store.dispatch("create", {
+        data: {
+          city: this.weather.city,
+          state: this.weather.state
+        },
+        commit: "setItem",
+        address: "locationInfo",
+        commitAddress: "locationInfo"
+      });
+      setTimeout(this.weatherInfoCheck(), 2000);
+    } else {
+      console.log();
+      this.$store
+        .dispatch("delete", {
+          data: this.$store.state.locationInfo[0],
           address: "locationInfo",
+          commit: "removeItem",
           commitAddress: "locationInfo"
-        });
-        setTimeout(this.weatherInfoCheck(), 2000);
-      } else {
-        console.log();
-        this.$store
-          .dispatch("delete", {
-            data: this.$store.state.locationInfo[0],
-            address: "locationInfo",
-            commit: "removeItem",
-            commitAddress: "locationInfo"
-          })
-          .then(res =>
-            this.$store.dispatch(
-              "create",
-              {
-                data: {
-                  city: this.weather.city,
-                  state: this.weather.state
-                },
-                commit: "setItem",
-                address: "locationInfo",
-                commitAddress: "locationInfo"
+        })
+        .then(res =>
+          this.$store.dispatch(
+            "create",
+            {
+              data: {
+                city: this.weather.city,
+                state: this.weather.state
               },
-              console.log(this.weather.city)
-            )
-          );
-        setTimeout(this.weatherInfoCheck(), 2000);
-      }
+              commit: "setItem",
+              address: "locationInfo",
+              commitAddress: "locationInfo"
+            },
+            console.log(this.weather.city)
+          )
+        );
+      setTimeout(this.weatherInfoCheck(), 2000);
     }
   }
 };
