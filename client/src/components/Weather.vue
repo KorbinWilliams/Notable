@@ -57,7 +57,7 @@
         <div class="col-6">
           <img
             class="weather-img"
-            src="https://lh3.googleusercontent.com/proxy/_LAg6FiDgH2lwBAG6QscJK5zGvy4VEAflp8QORuUtoJI0RVATU8B2syrv1J7nfWZIMA4LysTR3_lS-D9s2lZSW-vsKo4LLw"
+            src="https://spaceplace.nasa.gov/templates/featured/sun/sunburn300.png"
             alt="sunny,rainy,cloudy"
           />
         </div>
@@ -192,11 +192,16 @@ export default {
     // FIXME pretty sure commitAddress isnt working
     saveTemp(newTemp) {
       console.log(newTemp + "new");
-      console.log(this.$store.state.weatherInfo.list[this.day].main.temp);
       this.$store.dispatch("setActive", {
         data: newTemp,
         commit: "setItem",
-        commitAddress: "weatherInfo.list[ " + this.day + "].main.temp"
+        commitAddress: "weatherInfo",
+        drill: {
+          one: "list",
+          two: "0",
+          three: "main",
+          four: "temp"
+        }
       });
     }
   },
