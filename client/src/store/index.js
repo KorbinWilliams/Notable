@@ -36,6 +36,7 @@ export default new Vuex.Store({
     isLoggedIn: false,
     locationInfo: {},
     weatherInfo: {},
+    tempInfo: {},
     stickyNotes: [],
     events: [],
     calendar: {},
@@ -53,6 +54,7 @@ export default new Vuex.Store({
         state.isLoggedIn = false,
         state.locationInfo = {},
         state.weatherInfo = {},
+        state.tempInfo = {},
         state.stickyNotes = [],
         state.events = [],
         state.calendar = {},
@@ -61,29 +63,8 @@ export default new Vuex.Store({
         state.activeEvents = [],
         state.activeEvent = {}
     },
-    setItem(state, payload, drill) {
-      if (drill) {
-        debugger
-        if (drill.one) {
-          state[payload.address][drill.one] = payload.data
-        }
-        else if (drill.two) {
-          state[payload.address][drill.one][drill.two] = payload.data
-        }
-        else if (drill.three) {
-          state[payload.address][drill.one][drill.two][drill.three] = payload.data
-        }
-        else if (drill.four) {
-          state[payload.address][drill.one][drill.two][drill.three][drill.four] = payload.data
-        }
-      }
-      else {
-        state[payload.address] = payload.data;
-      }
-      // NOTE So this doesn't work for saving inside a property deeper in the obj. Ideas? 
-      // dot notation (create seperate property to add to address)
-      // create drill function
-
+    setItem(state, payload) {
+      state[payload.address] = payload.data;
     },
     removeItem(state, payload) {
       state[payload.address] = state[payload.address].filter(item => item._id != payload.data._id)
@@ -224,20 +205,11 @@ export default new Vuex.Store({
         }
       });
     },
-    setActive({ commit }, payload, drill) {
-      if (drill) {
-        debugger
-        commit(payload.commit, {
-          data: payload.data,
-          address: payload.commitAddress
-        }, drill)
-      }
-      else {
-        commit(payload.commit, {
-          data: payload.data,
-          address: payload.commitAddress
-        })
-      }
+    setActive({ commit }, payload) {
+      commit(payload.commit, {
+        data: payload.data,
+        address: payload.commitAddress
+      })
     }
   }
 })

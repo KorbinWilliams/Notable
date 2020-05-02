@@ -64,7 +64,7 @@
         <div class="col-6">
           <div class="row">
             <div class="col-12 weather-info">
-              <p>Temp: {{WeatherInfo[day].main.temp}} {{degrees}}</p>
+              <p>Temp: {{TempInfo}} {{degrees}}</p>
             </div>
             <div class="col-12 weather-info">
               <p>{{WeatherInfo[day].weather[0].description}}</p>
@@ -113,6 +113,9 @@ export default {
     },
     LocationInfo() {
       return this.$store.state.locationInfo[0];
+    },
+    TempInfo() {
+      return this.$store.state.tempInfo;
     }
   },
   mounted() {
@@ -135,16 +138,26 @@ export default {
 
     // NOTE checks to see if there is location info saved. if there is, then it gets weather info based on that information.
     weatherInfoCheck() {
-      console.log(this.$store.state.locationInfo[0].city);
+      console.log(
+        this.$store.state.locationInfo[0].city.length + " city length"
+      );
       if (this.$store.state.locationInfo[0].city.length > 3) {
-        this.$store.dispatch("get", {
-          weather: {
-            city: this.$store.state.locationInfo[0].city,
-            state: this.$store.state.locationInfo[0].state
-          },
-          commit: "setItem",
-          commitAddress: "weatherInfo"
-        });
+        this.$store
+          .dispatch("get", {
+            weather: {
+              city: this.$store.state.locationInfo[0].city,
+              state: this.$store.state.locationInfo[0].state
+            },
+            commit: "setItem",
+            commitAddress: "weatherInfo"
+          })
+          .then(res =>
+            this.$store.dispatch("setActive", {
+              commit: "setItem",
+              commitAddress: "tempInfo",
+              data: this.$store.state.weatherInfo.list[this.day].main.temp
+            })
+          );
       }
     },
 
@@ -168,40 +181,39 @@ export default {
         this.convertTemperature("C");
       } else if (this.degrees == "Celsius") {
         this.degrees = "Kelvin";
-        this.convertTemperature("Funsies");
+        this.convertTemperature();
       }
     },
 
     // NOTE Converts base temp then overwrites it in the store
     convertTemperature(temp) {
-      let curTemp = this.$store.state.weatherInfo.list[this.day].main.temp;
+      let curTemp = this.$store.state.tempInfo;
       console.log(curTemp + "cur");
       if (temp === "F") {
-        let newTemp = (curTemp * 9) / 5 - 459.67;
+        let preFormatTemp = (curTemp * 9) / 5 - 459.67;
+        let newTemp = preFormatTemp.toFixed(0);
         this.saveTemp(newTemp);
       } else if (temp === "C") {
         let x = curTemp - 32;
-        let newTemp = x * 0.555555555;
+        console.log(x + "x");
+        let preFormatTemp = x * 0.555555555;
+        console.log(preFormatTemp + "preFormat");
+        let newTemp = preFormatTemp.toFixed(0);
+        console.log(newTemp + "newTemp");
         this.saveTemp(newTemp);
       } else {
-        let newTemp = curTemp + 273.15;
+        let preFormatTemp = Number(curTemp) + 273.15;
+        let newTemp = preFormatTemp.toFixed(0);
         this.saveTemp(newTemp);
       }
     },
 
-    // FIXME pretty sure commitAddress isnt working
     saveTemp(newTemp) {
       console.log(newTemp + "new");
       this.$store.dispatch("setActive", {
         data: newTemp,
         commit: "setItem",
-        commitAddress: "weatherInfo",
-        drill: {
-          one: "list",
-          two: "0",
-          three: "main",
-          four: "temp"
-        }
+        commitAddress: "tempInfo"
       });
     }
   },
