@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="col-4 offset-4 pt-3 d-flex weather-btn">
-          <button class="btn" @click="saveLocationInfo">Submit</button>
+          <button class="btn" @click="workplz">Submit</button>
         </div>
       </div>
       <!-- Weather info -->
@@ -136,28 +136,31 @@ export default {
       });
     },
 
+    setTempInfo() {
+      this.$store.dispatch("setActive", {
+        commit: "setItem",
+        commitAddress: "tempInfo",
+        data: this.$store.state.weatherInfo.list[this.day].main.temp
+      });
+    },
+
     // NOTE checks to see if there is location info saved. if there is, then it gets weather info based on that information.
     weatherInfoCheck() {
       console.log(
         this.$store.state.locationInfo[0].city.length + " city length"
       );
       if (this.$store.state.locationInfo[0].city.length > 3) {
-        this.$store
-          .dispatch("get", {
-            weather: {
-              city: this.$store.state.locationInfo[0].city,
-              state: this.$store.state.locationInfo[0].state
-            },
-            commit: "setItem",
-            commitAddress: "weatherInfo"
-          })
-          .then(res =>
-            this.$store.dispatch("setActive", {
-              commit: "setItem",
-              commitAddress: "tempInfo",
-              data: this.$store.state.weatherInfo.list[this.day].main.temp
-            })
-          );
+        this.$store.dispatch("get", {
+          weather: {
+            city: this.$store.state.locationInfo[0].city,
+            state: this.$store.state.locationInfo[0].state
+          },
+          commit: "setItem",
+          commitAddress: "weatherInfo"
+        });
+        setTimeout(() => {
+          this.setTempInfo();
+        }, 500);
       }
     },
 
@@ -188,18 +191,14 @@ export default {
     // NOTE Converts base temp then overwrites it in the store
     convertTemperature(temp) {
       let curTemp = this.$store.state.tempInfo;
-      console.log(curTemp + "cur");
       if (temp === "F") {
         let preFormatTemp = (curTemp * 9) / 5 - 459.67;
         let newTemp = preFormatTemp.toFixed(0);
         this.saveTemp(newTemp);
       } else if (temp === "C") {
         let x = curTemp - 32;
-        console.log(x + "x");
         let preFormatTemp = x * 0.555555555;
-        console.log(preFormatTemp + "preFormat");
         let newTemp = preFormatTemp.toFixed(0);
-        console.log(newTemp + "newTemp");
         this.saveTemp(newTemp);
       } else {
         let preFormatTemp = Number(curTemp) + 273.15;
@@ -209,7 +208,6 @@ export default {
     },
 
     saveTemp(newTemp) {
-      console.log(newTemp + "new");
       this.$store.dispatch("setActive", {
         data: newTemp,
         commit: "setItem",
@@ -218,8 +216,12 @@ export default {
     }
   },
 
+  workplz() {
+    this.saveLocationInfo();
+  },
   // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
   saveLocationInfo() {
+    debugger;
     if (this.weather.city.length <= 4 || this.weather.state.length <= 4) {
       this.$store.dispatch("create", {
         data: {
