@@ -28,7 +28,7 @@ class EventService {
     return data;
   }
 
-  async edit(id, update, userId) {
+  async edit(id, userId, update) {
     let data = await _repository.findOneAndUpdate(
       { _id: id, authorId: userId },
       update,

@@ -152,11 +152,11 @@
         </div>
       </div>
       <div class="col-12 events">
-        <div v-if="canEditEvents == false && canAddEvents == false">
+        <div v-if="canEditEvents == false && this.canAddEvents == false">
           <h3
             v-for="Event in Events"
             :key="Event._id"
-            @click="deleteEvent(Event)"
+            @click="setActiveEvent(Event)"
           >{{Event.name}}, {{Event.description}}, {{Event.dateOfEvent.slice(0, 10)}}</h3>
         </div>
 
@@ -173,7 +173,7 @@
               class="form-control event-form"
               placeholder="event title"
               aria-describedby="helpId"
-              v-if="canAddEvents == true"
+              v-if="canAddEvents == true || canEditEvents == true"
               v-model="newEvent.name"
             />
           </div>
@@ -183,7 +183,7 @@
               class="form-control event-form"
               placeholder="event description (optional)"
               aria-describedby="helpId"
-              v-if="canAddEvents == true"
+              v-if="canAddEvents == true || canEditEvents == true"
               v-model="newEvent.description"
             />
           </div>
@@ -192,7 +192,7 @@
               type="date"
               class="form-control event-form"
               aria-describedby="helpId"
-              v-if="canAddEvents == true"
+              v-if="canAddEvents == true || canEditEvents == true"
               v-model="newEvent.dateOfEvent"
             />
           </div>
@@ -205,37 +205,8 @@
             >Submit</button>
           </div>
           <div class="col-12">
-            <input
-              type="text"
-              class="form-control event-form"
-              placeholder="event title"
-              aria-describedby="helpId"
-              v-if="canEditEvents == true"
-              v-model="newEvent.name"
-            />
-          </div>
-          <div class="col-12">
-            <input
-              type="text"
-              class="form-control event-form"
-              placeholder="event description (optional)"
-              aria-describedby="helpId"
-              v-if="canEditEvents == true"
-              v-model="newEvent.description"
-            />
-          </div>
-          <div class="col-12">
-            <input
-              type="date"
-              class="form-control event-form"
-              aria-describedby="helpId"
-              v-if="canEditEvents == true"
-              v-model="newEvent.dateOfEvent"
-            />
-          </div>
-          <div class="col-12">
             <button
-              @click="addEvent"
+              @click="editEvent"
               v-if="canEditEvents == true"
               type="button"
               class="btn event-form"
@@ -269,15 +240,10 @@ export default {
       canAddEvents: false,
       canEditEvents: false,
       canRemoveEvents: false,
+      selectedEvent: false,
       newEvent: {
         name: "",
         description: "",
-        dateOfEvent: Date
-      },
-      editedEvent: {
-        name: this.$store.state.activeEvent.name,
-        description: this.$store.state.activeEvent.description,
-        _id: this.$store.state.activeEvent._id,
         dateOfEvent: Date
       }
     };
@@ -371,10 +337,16 @@ export default {
     editEvent() {
       this.convertEventDate();
       this.$store.dispatch("edit", {
-        commit: "setItem",
+        commit: "addItem",
         commitAddress: "events",
         address: "events",
-        data: this.editedEvent
+        data: {
+          name: this.newEvent.name,
+          description: this.newEvent.description,
+          _id: this.$store.state.activeEvent._id,
+          id: this.$store.state.activeEvent.id,
+          dateOfEvent: this.newEvent.dateOfEvent
+        }
       });
     },
     deleteEvent(Event) {
@@ -406,6 +378,17 @@ export default {
         this.canAddEvents = false;
         this.canEditEvents = false;
         this.canRemoveEvents = true;
+      }
+    },
+    setActiveEvent(Event) {
+      if (this.canRemoveEvents == true) {
+        this.deleteEvent(Event);
+      } else {
+        this.$store.dispatch("setActive", {
+          commit: "setItem",
+          commitAddress: "activeEvent",
+          data: Event
+        });
       }
     }
   },
