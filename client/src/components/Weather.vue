@@ -19,7 +19,7 @@
       <!-- Location Form -->
       <div v-if="this.inputLocation == true" class="row locationInput form-group">
         <div class="col-6">
-          <div class>
+          <div>
             <label>input your city</label>
             <input
               v-model="weather.city"
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="col-6">
-          <div class>
+          <div>
             <label>input your state</label>
             <input
               v-model="weather.state"
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="col-4 offset-4 pt-3 d-flex weather-btn">
-          <button class="btn" @click="workplz">Submit</button>
+          <button @click="createLocationInfo">Save</button>
         </div>
       </div>
       <!-- Weather info -->
@@ -140,15 +140,12 @@ export default {
       this.$store.dispatch("setActive", {
         commit: "setItem",
         commitAddress: "tempInfo",
-        data: this.$store.state.weatherInfo.list[this.day].main.temp
+        data: this.$store.state.weatherInfo.list[0].main.temp
       });
     },
 
     // NOTE checks to see if there is location info saved. if there is, then it gets weather info based on that information.
     weatherInfoCheck() {
-      console.log(
-        this.$store.state.locationInfo[0].city.length + " city length"
-      );
       if (this.$store.state.locationInfo[0].city.length > 3) {
         this.$store.dispatch("get", {
           weather: {
@@ -213,16 +210,9 @@ export default {
         commit: "setItem",
         commitAddress: "tempInfo"
       });
-    }
-  },
+    },
 
-  workplz() {
-    this.saveLocationInfo();
-  },
-  // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
-  saveLocationInfo() {
-    debugger;
-    if (this.weather.city.length <= 4 || this.weather.state.length <= 4) {
+    createLocationInfo() {
       this.$store.dispatch("create", {
         data: {
           city: this.weather.city,
@@ -232,32 +222,37 @@ export default {
         address: "locationInfo",
         commitAddress: "locationInfo"
       });
-      setTimeout(this.weatherInfoCheck(), 2000);
-    } else {
-      console.log();
-      this.$store
-        .dispatch("delete", {
-          data: this.$store.state.locationInfo[0],
+    },
+
+    deleteLocationInfo() {
+      this.$store.dispatch("delete", {
+        data: this.$store.state.locationInfo[0],
+        address: "locationInfo",
+        commit: "removeItem",
+        commitAddress: "locationInfo"
+      });
+    },
+
+    // NOTE after submitting weather info checks to see if weather info is saved. If weather info is already there it deletes it. Then creates a new one with the provided information.
+    saveLocationInfo() {
+      debugger;
+
+      this.$store.dispatch(
+        "create",
+        {
+          data: {
+            city: this.weather.city,
+            state: this.weather.state
+          },
+          commit: "setItem",
           address: "locationInfo",
-          commit: "removeItem",
           commitAddress: "locationInfo"
-        })
-        .then(res =>
-          this.$store.dispatch(
-            "create",
-            {
-              data: {
-                city: this.weather.city,
-                state: this.weather.state
-              },
-              commit: "setItem",
-              address: "locationInfo",
-              commitAddress: "locationInfo"
-            },
-            console.log(this.weather.city)
-          )
-        );
+        },
+        console.log(this.weather.city)
+      );
+      // .then(res => this.weatherInfoCheck());
       setTimeout(this.weatherInfoCheck(), 2000);
+      // }
     }
   }
 };
