@@ -25,29 +25,6 @@
     <div class="row">
       <div class="col-12">
         <div class="row d-flex justify-content-center">
-          <div class="col-1 cal-dow">
-            <p>Sun</p>
-          </div>
-          <div class="col-1 cal-dow">
-            <p>Mon</p>
-          </div>
-          <div class="col-1 cal-dow">
-            <p>Tues</p>
-          </div>
-          <div class="col-1 cal-dow">
-            <p>Wed</p>
-          </div>
-          <div class="col-1 cal-dow">
-            <p>Thurs</p>
-          </div>
-          <div class="col-1 cal-dow">
-            <p>Fri</p>
-          </div>
-          <div class="col-1 cal-dow">
-            <p>Sat</p>
-          </div>
-        </div>
-        <div class="row d-flex justify-content-center">
           <div class="col-1 cal-block">
             <p>1</p>
           </div>

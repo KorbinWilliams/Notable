@@ -50,7 +50,9 @@
       <div class="row">
         <div v-if="inputLocation == false" class="col-12">
           <!-- NOTE Source of location change bug. No idea how to fix without deleting this -->
-          <h3>{{LocationInfo.city}}, {{LocationInfo.state}}</h3>
+          <h3
+            v-if="this.$store.state.locationInfo[0].city"
+          >{{LocationInfo.city}}, {{LocationInfo.state}}</h3>
         </div>
       </div>
       <div v-if="this.inputLocation == false" class="row weather-information">
@@ -75,18 +77,6 @@
           </div>
         </div>
       </div>
-      <!-- Day selector -->
-      <div v-if="this.inputLocation == false" class="row day-selector">
-        <div class="col-4">
-          <button>---</button>
-        </div>
-        <div class="col-4">
-          <button>---</button>
-        </div>
-        <div class="col-4">
-          <button>---</button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -97,8 +87,8 @@ export default {
   data() {
     return {
       weather: {
-        city: "",
-        state: ""
+        city: "Moscow",
+        state: "Idaho"
       },
       inputLocation: false,
       degrees: "Kelvin",
@@ -119,6 +109,7 @@ export default {
     }
   },
   mounted() {
+    this.createLocationInfo();
     this.getWeather();
   },
   methods: {
@@ -146,19 +137,17 @@ export default {
 
     // NOTE checks to see if there is location info saved. if there is, then it gets weather info based on that information.
     weatherInfoCheck() {
-      if (this.$store.state.locationInfo[0].city.length > 3) {
-        this.$store.dispatch("get", {
-          weather: {
-            city: this.$store.state.locationInfo[0].city,
-            state: this.$store.state.locationInfo[0].state
-          },
-          commit: "setItem",
-          commitAddress: "weatherInfo"
-        });
-        setTimeout(() => {
-          this.setTempInfo();
-        }, 500);
-      }
+      this.$store.dispatch("get", {
+        weather: {
+          city: this.$store.state.locationInfo[0].city,
+          state: this.$store.state.locationInfo[0].state
+        },
+        commit: "setItem",
+        commitAddress: "weatherInfo"
+      });
+      setTimeout(() => {
+        this.setTempInfo();
+      }, 500);
     },
 
     // NOTE hides/shows location input form
@@ -213,15 +202,32 @@ export default {
     },
 
     createLocationInfo() {
-      this.$store.dispatch("create", {
-        data: {
-          city: this.weather.city,
-          state: this.weather.state
-        },
-        commit: "setItem",
-        address: "locationInfo",
-        commitAddress: "locationInfo"
-      });
+      console.log(this.weather.city);
+      if (this.weather.city !== "Moscow") {
+        this.deleteLocationInfo();
+        setTimeout(
+          this.$store.dispatch("create", {
+            data: {
+              city: this.weather.city,
+              state: this.weather.state
+            },
+            commit: "setItem",
+            address: "locationInfo",
+            commitAddress: "locationInfo"
+          }),
+          2000
+        );
+      } else {
+        this.$store.dispatch("create", {
+          data: {
+            city: this.weather.city,
+            state: this.weather.state
+          },
+          commit: "setItem",
+          address: "locationInfo",
+          commitAddress: "locationInfo"
+        });
+      }
     },
 
     deleteLocationInfo() {
